@@ -1,0 +1,29 @@
+{
+  "name": "node1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=localhost nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "connect-livereload": "^0.6.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "livereload": "^0.10.3",
+    "nodemon": "^3.1.11"
+  },
+  "nodemonConfig": {
+    "exec": "cls && node index.js"
+  },
+  "devDependencies": {
+    "clear-console": "^1.1.0",
+    "cross-env": "^10.1.0"
+  }
+}
