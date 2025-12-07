@@ -1,3 +1,4 @@
+document.body.classList.add('bg-dark', 'container-fluid', 'text-light')
 // Cookie utility functions
 function setCookie(name, value, days) {
     const date = new Date();
@@ -64,6 +65,7 @@ function loadCDN(type, url) {
 }
 
 loadCDN('css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css')
+loadCDN('css', '/assets/css/style.css')
 loadCDN('js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js')
 
 async function loadComponent(id, filename) {
@@ -101,3 +103,4 @@ loadComponent('navbar', 'navbar.html').then(() => {
 
 loadComponent('footer', 'footer.html')
 
+document.getElementById('time').innerText = new Date().toLocaleString();
