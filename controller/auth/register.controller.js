@@ -19,13 +19,13 @@ module.exports = async (req, res) => {
         const [row] = await mysqli.query('SELECT username FROM auth WHERE username = ?', [username]);
 
         if (row.length > 0) {
-            return res.status(409).json({ message: 'Username already exists' });
+            return res.status(409).json({ message: 'username ถูกไช้งานแล้ว' });
         }
 
         // INSERT user (ไม่ hash)
         await mysqli.query('INSERT INTO auth (username, password) VALUES (?, ?)', [username, password]);
 
-        return res.status(201).json({ message: 'Register successful' });
+        return res.status(201).json({ message: 'สมัครสามชิกสำเร็จกรุณา login เพื่อไช้งานระบบ' });
 
     } catch (err) {
         console.error(err);

@@ -11,9 +11,11 @@ if (NODE_ENV === 'localhost') {
     liveReloadServer.watch(path.join(__dirname, 'public'));
     app.use(connectLivereload());
 }
+
 app.use(express.static('public'));
 app.use(express.json())
 app.use(require('./routes/routes'))
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
