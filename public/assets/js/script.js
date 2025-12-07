@@ -1,4 +1,4 @@
-document.body.classList.add('bg-dark', 'container-fluid', 'text-light')
+document.body.classList.add('bg-dark', 'container-fluid', 'p-0')
 // Cookie utility functions
 function setCookie(name, value, days) {
     const date = new Date();
@@ -103,4 +103,8 @@ loadComponent('navbar', 'navbar.html').then(() => {
 
 loadComponent('footer', 'footer.html')
 
-document.getElementById('time').innerText = new Date().toLocaleString();
+// Safely update `#time` if present on the page
+const _timeEl = document.getElementById('time');
+if (_timeEl) {
+    _timeEl.innerText = new Date().toLocaleString();
+}
