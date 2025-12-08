@@ -7,7 +7,7 @@ router.get('/example', (req, res) => {
         "description": "อัพเดทบทความใหม่! 10 เคล็ดลับ...",
         "date": "2025-12-06",
         "link": "https://example.com/article/1",
-        "background": "./assets/img/bg1.webp",
+        "background": "./assets/img/earth.webp",
         "images": [
             "./assets/img/earth.webp",
             "./assets/img/earth.webp",
@@ -19,7 +19,7 @@ router.get('/example', (req, res) => {
         "description": "เทคนิคสุดง่ายที่ใครก็ทำได้...",
         "date": "2025-12-06",
         "link": "https://example.com/article/2",
-        "background": "./assets/img/bg2.webp",
+        "background": "./assets/img/cards.webp",
         "images": [
             "./assets/img/earth.webp",
             "./assets/img/earth.webp",
@@ -32,7 +32,7 @@ router.get('/example', (req, res) => {
         "description": "เทคนิคสุดง่ายที่ใครก็ทำได้...",
         "date": "2025-12-06",
         "link": "https://example.com/article/2",
-        "background": "./assets/img/bg2.webp",
+        "background": "./assets/img/cards.webp",
         "images": [
             "./assets/img/earth.webp",
             "./assets/img/earth.webp",

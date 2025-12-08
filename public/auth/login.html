@@ -81,6 +81,7 @@
                 }
 
                 alert('Login successful');
+                setCookie('token', data.token, 1);
                 window.location.href = '/eol/eolsystem.html';
 
             } catch (err) {
