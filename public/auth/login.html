@@ -82,7 +82,17 @@
 
                 alert('Login successful');
                 setCookie('token', data.token, 1);
-                window.location.href = '/eol/eolsystem.html';
+                // window.location.href = '/eol/eolsystem.html';
+
+                const payload = decodeCookie('token');
+                if (payload && payload.role === 'admin') {
+                    window.location.href = '/admin/admin.html';
+                    // console.log('Admin logged in');
+                }
+                if (payload && payload.role === 'user') {
+                    window.location.href = '/eol/eolsystem.html';
+                    // console.log('User logged in');
+                }
 
             } catch (err) {
                 alert('Login failed: ' + err.message);
