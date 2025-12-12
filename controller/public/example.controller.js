@@ -1,7 +1,4 @@
-const express = require('express')
-const router = express.Router()
-
-router.get('/example', (req, res) => {
+module.exports = async function (req, res) {
     res.status(200).json([{
         "title": "เทคนิคการเรียนภาษาอังกฤษ",
         "description": "อัพเดทบทความใหม่! 10 เคล็ดลับ...",
@@ -41,8 +38,4 @@ router.get('/example', (req, res) => {
         ]
     }
     ])
-})
-// auth
-router.post('/register', require('../../controller/auth/register.controller'))
-router.post('/login', require('../../controller/auth/login.controller'))
-module.exports = router
+}

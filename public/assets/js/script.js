@@ -89,11 +89,12 @@ function loadCDN(type, url) {
         }
     });
 }
-
+// Load Bootstrap CSS and JS from CDN
 loadCDN('css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css')
 loadCDN('css', '/assets/css/style.css')
 loadCDN('js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js')
-
+loadCDN('css', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css')
+{/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></link> */ }
 async function loadComponent(id, filename) {
     const el = document.getElementById(id);
     if (!el) {
