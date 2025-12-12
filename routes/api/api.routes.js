@@ -42,6 +42,7 @@ router.get('/example', (req, res) => {
     }
     ])
 })
+// asdasdasdasd
 // auth
 router.post('/register', require('../../controller/auth/register.controller'))
 router.post('/login', require('../../controller/auth/login.controller'))
