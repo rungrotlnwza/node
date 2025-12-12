@@ -113,27 +113,32 @@ async function loadComponent(id, filename) {
         console.error(`Failed to load component '${filename}':`, err);
     }
 }
-
-// Update navbar auth links safely (only if elements exist)
 function updateAuthNavbar() {
     const token = getCookie('token');
-    const dashboard = document.getElementById('dashboard');
-    const logout = document.getElementById('logout');
-    const login = document.getElementById('login');
-    const register = document.getElementById('register');
+
+    const els = {
+        dashboard: document.getElementById('dashboard'),
+        logout: document.getElementById('logout'),
+        login: document.getElementById('login'),
+        register: document.getElementById('register')
+    };
+
+    const show = el => el && el.classList.remove('d-none');
+    const hide = el => el && el.classList.add('d-none');
 
     if (token) {
-        if (dashboard) dashboard.classList.remove('d-none');
-        if (logout) logout.classList.remove('d-none');
-        if (login) login.classList.add('d-none');
-        if (register) register.classList.add('d-none');
+        show(els.dashboard);
+        show(els.logout);
+        hide(els.login);
+        hide(els.register);
     } else {
-        if (login) login.classList.remove('d-none');
-        if (register) register.classList.remove('d-none');
-        if (dashboard) dashboard.classList.add('d-none');
-        if (logout) logout.classList.add('d-none');
+        show(els.login);
+        show(els.register);
+        hide(els.dashboard);
+        hide(els.logout);
     }
 }
+
 
 // Load components when placeholders exist
 async function ensureComponents() {
