@@ -235,137 +235,64 @@ if (_timeEl) {
 }
 
 
-async function layout(containerId, layoutName) {
+async function layout(containerId, layoutFile) {
     const container = document.getElementById(containerId);
     if (!container) {
-        console.warn(`Container '${containerId}' not found`);
+        console.log(`Container with ID "${containerId}" not found.`);
         return;
     }
 
-    try {
-        // เก็บเนื้อหาเดิม
-        const contentHtml = container.innerHTML;
+    const originalContent = container.innerHTML;
 
-        // โหลด layout
-        // support passing with or without .html
-        const fileName = layoutName.endsWith('.html') ? layoutName : `${layoutName}.html`;
-        const res = await fetch(`/assets/layout/${fileName}`);
+    try {
+        // โหลด layout file
+        const res = await fetch(`/assets/layout/${layoutFile}`);
         let layoutHtml = await res.text();
 
-        // แทนที่ <slot></slot> ด้วย content เดิม (ยืดหยุ่นกับ whitespace/attributes)
-        layoutHtml = layoutHtml.replace(/<slot\b[^>]*>\s*<\/slot>/i, contentHtml);
+        // ถ้ามี <slot> ให้แทน content ลงไป
+        if (layoutHtml.includes("<slot")) {
+            layoutHtml = layoutHtml.replace(/<slot\b[^>]*>(.*?)<\/slot>/is, originalContent);
+        }
 
-        // แสดง layout + content
+        // Inject layout ลง container
         container.innerHTML = layoutHtml;
 
-        // Execute any scripts that came with the injected layout (external or inline)
-        (function processInjectedScripts(root) {
-            try {
-                const scripts = Array.from(root.querySelectorAll('script'));
-                scripts.forEach(s => {
-                    const newScript = document.createElement('script');
-                    // copy type if present
-                    if (s.type) newScript.type = s.type;
-                    if (s.src) {
-                        // avoid loading same src twice
-                        if (document.querySelector(`script[src="${s.src}"]`)) return;
-                        newScript.src = s.src;
-                    } else {
-                        newScript.textContent = s.textContent;
-                    }
-                    document.body.appendChild(newScript);
-                    // remove original to avoid duplication
-                    s.parentNode && s.parentNode.removeChild(s);
-                });
-            } catch (e) {
-                console.error('Failed to process injected scripts:', e);
-            }
-        })(container);
+        // ทำให้ script ภายใน layout ทำงาน
+        executeScripts(container);
 
-        // Initialize layout interactivity (menu toggle / overlay)
-        initLayoutBehavior();
-        // ถ้ามี placeholder สำหรับ navbar/footer ให้โหลด component เหล่านั้น
-        try {
-            if (document.getElementById('navbar')) {
-                await loadComponent('navbar', 'navbar.html');
-                // update auth links if navbar was loaded inside layout
-                updateAuthNavbar();
-            }
-        } catch (e) {
-            console.error('Failed to load navbar into layout:', e);
+        // เรียก behavior layout ถ้ามี
+        if (typeof initLayoutBehavior === "function") {
+            initLayoutBehavior();
         }
 
-        try {
-            if (document.getElementById('footer')) {
-                await loadComponent('footer', 'footer.html');
-            }
-        } catch (e) {
-            console.error('Failed to load footer into layout:', e);
+        // โหลด components เช่น navbar/footer ถ้ามี
+        if (typeof ensureComponents === "function") {
+            await ensureComponents();
         }
+
     } catch (err) {
-        console.error(`Failed to load layout '${layoutName}':`, err);
+        console.error("Failed to load layout:", err);
     }
 }
 
-// เรียกใช้ เมื่อ DOM พร้อม
-function runWhenReady(fn) {
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fn);
-    } else {
-        fn();
-    }
-}
 
-runWhenReady(() => {
-    // For pages that already have navbar/footer placeholders (like index.html)
-    ensureComponents();
-    // If this page uses a layout container, inject layout
-    // Support multiple container ids: #app, #layout-admin, or an element with data-layout-container
-    const containerEl = document.querySelector('#app, #layout-admin, [data-layout-container]');
-    if (containerEl) {
-        const containerId = containerEl.id || containerEl.getAttribute('data-layout-container');
-        if (containerId) {
-            layout(containerId, 'admin.layout.html');
+// ทำให้ script ทำงานหลัง inject
+function executeScripts(root) {
+    const scripts = [...root.querySelectorAll("script")];
+
+    scripts.forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) {
+            newScript.src = oldScript.src;
         } else {
-            // If the element has no id, inject layout into it directly
-            (async () => {
-                const contentHtml = containerEl.innerHTML;
-                const fileName = 'admin.layout.html';
-                try {
-                    const res = await fetch(`/assets/layout/${fileName}`);
-                    let layoutHtml = await res.text();
-                    layoutHtml = layoutHtml.replace(/<slot\b[^>]*>\s*<\/slot>/i, contentHtml);
-                    containerEl.innerHTML = layoutHtml;
-
-                    // Execute any scripts that came with the injected layout
-                    (function processInjectedScripts(root) {
-                        try {
-                            const scripts = Array.from(root.querySelectorAll('script'));
-                            scripts.forEach(s => {
-                                const newScript = document.createElement('script');
-                                if (s.type) newScript.type = s.type;
-                                if (s.src) {
-                                    if (document.querySelector(`script[src="${s.src}"]`)) return;
-                                    newScript.src = s.src;
-                                } else {
-                                    newScript.textContent = s.textContent;
-                                }
-                                document.body.appendChild(newScript);
-                                s.parentNode && s.parentNode.removeChild(s);
-                            });
-                        } catch (e) {
-                            console.error('Failed to process injected scripts:', e);
-                        }
-                    })(containerEl);
-
-                    // Initialize layout interactivity (menu toggle / overlay)
-                    initLayoutBehavior();
-
-                    await ensureComponents();
-                } catch (e) {
-                    console.error('Failed to inject layout into container element:', e);
-                }
-            })();
+            newScript.textContent = oldScript.textContent;
         }
-    }
-});
+        if (oldScript.type) newScript.type = oldScript.type;
+        document.body.appendChild(newScript);
+        oldScript.remove();
+    });
+}
+
+
+layout('layout-admin', 'admin.layout.html');
+layout('layout-user', 'user.layout.html');
