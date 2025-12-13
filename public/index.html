@@ -5,37 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- 加入 Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .bg-warning-customs {
-            background-color: #f7941d !important;
-        }
-
-        .slide-bg {
-            background-size: cover;
-            background-position: center;
-            min-height: 400px;
-        }
-
-        .footer-contact-box {
-            background: #F9B562;
-        }
-    </style>
 </head>
 
 <body>
     <div id="navbar"></div>
-    <!-- 添加 margin-top 來避開 fixed navbar -->
-    <div style="margin-top: 70px;"></div>
-
     <!-- banner -->
     <section class="bg-warning-customs text-dark">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row p-4 p-md-5 d-flex align-items-center">
                 <div class="col-12 col-md-6">
                     <h1>ENGLISH CLINIC FOR THAI LEARNERS</h1>
@@ -51,7 +27,7 @@
 
     <!-- carousel -->
     <section class="py-5">
-        <div class="container">
+        <div class="container-fluid">
             <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators" id="carouselIndicators"></div>
                 <div class="carousel-inner" id="carouselContent">
@@ -91,7 +67,7 @@
 
     <!-- content section -->
     <section class="py-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-12 col-md-6 d-flex flex-column align-self-center mb-4 mb-md-0">
                     <h1>EOL PERSONAL</h1>
@@ -154,7 +130,7 @@
                     }
 
                     // 4) ใส่รูปหลายใบ
-                    const imgContainer = clone.querySelector(".slide-images");
+                    const imgcontainer = clone.querySelector(".slide-images");
 
                     if (slide.images && slide.images.length > 0) {
                         slide.images.forEach(src => {
@@ -162,15 +138,12 @@
                             const img = imgClone.querySelector(".slide-img");
                             img.src = src;
                             img.alt = slide.title + " image";
-                            imgContainer.appendChild(imgClone);
+                            imgcontainer.appendChild(imgClone);
                         });
                     }
-
-                    // 5) append final item
                     content.appendChild(clone);
                 });
 
-                // 啟用輪播控制按鈕
                 if (slides.length > 1) {
                     document.querySelector('.carousel-control-prev').style.display = 'block';
                     document.querySelector('.carousel-control-next').style.display = 'block';
@@ -181,8 +154,6 @@
                 content.innerHTML = '<div class="carousel-item active"><div class="row p-5"><div class="col-12 text-center"><p>Unable to load carousel content</p></div></div></div>';
             }
         }
-
-        // 當DOM載入完成後執行
         document.addEventListener('DOMContentLoaded', loadCarousel);
     </script>
 </body>
