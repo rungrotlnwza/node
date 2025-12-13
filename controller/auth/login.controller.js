@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
             id: check[0].id,
             username: check[0].password,
             role: check[0].role
-        }, 'iflovethenus', {
+        }, process.env.JWT_SECRET, {
             expiresIn: '1d'
         })
         return res.status(200).json({ message: 'Login สำเร็จ', token });

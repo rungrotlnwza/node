@@ -1,69 +1,45 @@
--- phpMyAdmin SQL Dump
--- version 5.2.3
--- https://www.phpmyadmin.net/
---
--- Host: mariadb
--- Generation Time: Dec 12, 2025 at 09:57 AM
--- Server version: 11.8.5-MariaDB-ubu2404
--- PHP Version: 8.3.26
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `mydb`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `auth`
---
-
 CREATE TABLE `auth` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('user','admin','staff') DEFAULT 'user'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-
---
--- Dumping data for table `auth`
---
-
+)
 INSERT INTO `auth` (`id`, `username`, `password`, `role`) VALUES
 (1, 'username', 'password', 'admin'),
 (2, 'username1', 'password', 'user');
+CREATE TABLE `user_detail` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `auth_id` INT(11) NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
+  `lastname` VARCHAR(100) NOT NULL,
+  `phone` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `address` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_email` (`email`)
+);
 
---
--- Indexes for dumped tables
---
+CREATE TABLE `level_skill` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `auth_id` INT(11) NOT NULL,
 
---
--- Indexes for table `auth`
---
-ALTER TABLE `auth`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+  `reading_level` ENUM('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
+  `reading_score` INT(11) NOT NULL DEFAULT 0,
 
---
--- AUTO_INCREMENT for dumped tables
---
+  `listening_level` ENUM('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
+  `listening_score` INT(11) NOT NULL DEFAULT 0,
 
---
--- AUTO_INCREMENT for table `auth`
---
-ALTER TABLE `auth`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
+  `speaking_level` ENUM('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
+  `speaking_score` INT(11) NOT NULL DEFAULT 0,
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  `writing_level` ENUM('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
+  `writing_score` INT(11) NOT NULL DEFAULT 0,
+
+  `grammar_level` ENUM('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
+  `grammar_score` INT(11) NOT NULL DEFAULT 0,
+
+  `vocabulary_level` ENUM('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
+  `vocabulary_score` INT(11) NOT NULL DEFAULT 0,
+
+  PRIMARY KEY (`id`)
+);
