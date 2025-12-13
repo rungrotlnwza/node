@@ -1,23 +1,27 @@
 require('dotenv').config({ quiet: true });
 const express = require('express');
 const path = require('path');
-const app = express();
-const PORT = process.env.PORT;
-const setupLiveReload = require('./middleware/livereload');
 const cookieParser = require('cookie-parser');
 
-// Express setup
-setupLiveReload(app);
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.use('/assets',express.static('assets'))
+const app = express();
+const PORT = process.env.PORT;
+
+// view engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.disable('view cache');
+
+// livereload MUST be before routes
+require('./middleware/livereload')(app);
+
+// global middlewares
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
-app.use(require('./routes/routes')); // routes ของคุณ
-// ใช้ cookie-parser
 app.use(cookieParser());
 
-// Body parser
-app.use(express.json());
+// routes (last)
+app.use(require('./routes/routes'));
+
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
