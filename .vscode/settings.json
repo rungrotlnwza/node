@@ -8,7 +8,7 @@
         "editor.defaultFormatter": "vscode.css-language-features"
     },
     "[javascript]": {
-        "editor.defaultFormatter": "vscode.javascript-language-features"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[ejs]": {
         "editor.defaultFormatter": "j69.ejs-beautify",

@@ -13,4 +13,7 @@ router.get('/auth/register',(req,res)=>{
 router.get('/admin/admin',(req,res)=>[
     res.render(path.join(__dirname,'../../views/admin/admin.ejs'))
 ])
+router.get('/user/profile',(req,res)=>{
+    res.render(path.join(__dirname,'../../views/user/profile.ejs'))
+})
 module.exports = router;

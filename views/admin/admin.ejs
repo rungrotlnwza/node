@@ -2,5 +2,12 @@
 <%- include('../components/navbar.ejs') -%>
 
 <h1>hello admin</h1>
+
 <%- include('../components/admin/admin.footer.ejs') %>
 <%- include('../components/ender.ejs') %>
+
+<script>
+  if (!getCookie('token')) {
+    window.location.href = '/'
+  }
+</script>

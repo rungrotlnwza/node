@@ -45,4 +45,5 @@ router.get('/example', (req, res) => {
 // auth
 router.post('/register', require('../../controller/auth/register.controller'))
 router.post('/login', require('../../controller/auth/login.controller'))
+router.get('/me', require('../../controller/auth/profile.controller'))
 module.exports = router
