@@ -296,3 +296,5 @@ function executeScripts(root) {
 
 layout('layout-admin', 'admin.layout.html');
 layout('layout-user', 'user.layout.html');
+loadComponent('navbar', 'navbar.html');
+loadComponent('footer', 'footer.html');
