@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.disable('view cache');
 
 // livereload MUST be before routes
-require('./middleware/livereload')(app);
+require('./lib/middleware/livereload')(app);
 
 // global middlewares
 app.use('/assets', express.static(path.join(__dirname, 'assets')));

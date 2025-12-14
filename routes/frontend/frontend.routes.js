@@ -4,16 +4,19 @@ const path = require('path');
 router.get('/', (req, res) => {
     res.render(path.join(__dirname, '../../views/index.ejs'))
 });
-router.get('/auth/login',(req,res)=>{
-    res.render(path.join(__dirname,'../../views/auth/login.ejs'))
+router.get('/auth/login', (req, res) => {
+    res.render(path.join(__dirname, '../../views/auth/login.ejs'))
 })
-router.get('/auth/register',(req,res)=>{
-    res.render(path.join(__dirname,'../../views/auth/register.ejs'))
+router.get('/auth/register', (req, res) => {
+    res.render(path.join(__dirname, '../../views/auth/register.ejs'))
 })
-router.get('/admin/admin',(req,res)=>[
-    res.render(path.join(__dirname,'../../views/admin/admin.ejs'))
+router.get('/admin/admin', (req, res) => [
+    res.render(path.join(__dirname, '../../views/admin/admin.ejs'))
 ])
-router.get('/user/profile',(req,res)=>{
-    res.render(path.join(__dirname,'../../views/user/profile.ejs'))
+router.get('/user/me', (req, res) => {
+    res.render(path.join(__dirname, '../../views/user/profile.ejs'))
+})
+router.get('/user/changpassword', (req, res) => {
+    res.render(path.join(__dirname, '../../views/user/changpassword.ejs'))
 })
 module.exports = router;

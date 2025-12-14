@@ -163,7 +163,10 @@
 <%- include('../components/user/user.footer.ejs') %>
 <%-include('../components/ender.ejs') %>
 <script>
-  console.log(getCookie("token"));
+  if (!getCookie('token')) {
+    window.location.href = '/'
+  }
+
   fetch('/api/me', {
     method: 'GET',
     headers: {
