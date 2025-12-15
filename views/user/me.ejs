@@ -52,7 +52,7 @@
                 <p class="mb-0">Full Name</p>
               </div>
               <div class="col-sm-9">
-                <p id="fullname" class="text-muted mb-0">Johnatan Smith</p>
+                <p id="fullname" class="text-muted mb-0"></p>
               </div>
             </div>
             <hr>
@@ -162,43 +162,6 @@
   if (!getCookie('token')) {
     window.location.href = '/'
   }
-
-  // fetch('/api/me', {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${getCookie('token')}`
-  //   }
-  // }).then(response => response.json()).then(data => {
-  //   console.log(data);
-  //   document.getElementById("cert-fullname").innerText = data.first_name + " " + data.last_name;
-  //   document.getElementById("cert-pass").innerText = data.certpass
-  //   // document.getElementById("role").innerText = data.role;
-  //   // document.getElementById("address").innerText = data.address;
-  //   document.getElementById("fullname").innerText = data.first_name + " " + data.last_name;
-  //   document.getElementById("email2").innerText = data.email;
-  //   document.getElementById("Phone").innerText = data.phone;
-  //   document.getElementById("address").innerText = data.address;
-  //   // console.log(data.first_name);
-  //   document.getElementById("level-reading").innerText = data.level.reading
-  //   document.getElementById("skill-reading").style.width = data.skills.reading + "%";
-
-  //   document.getElementById("level-listening").innerText = data.level.reading
-  //   document.getElementById("skill-listening").style.width = data.skills.listening + "%";
-
-  //   document.getElementById("level-speaking").innerText = data.level.speaking
-  //   document.getElementById("skill-speaking").style.width = data.skills.speaking + "%";
-
-  //   document.getElementById("level-writing").innerHTML = data.level.writing
-  //   document.getElementById("skill-writing").style.width = data.skills.writing + "%";
-
-  //   document.getElementById("level-grammar").innerText = data.level.grammar
-  //   document.getElementById('skill-grammar').style.width = data.skills.grammar + "%"
-
-  //   document.getElementById("level-vocabbulary").innerText = data.level.vocabbulary
-  //   document.getElementById('skill-vocabbulary').style.width = data.skills.vocabbulary + "%"
-  // });
-
   if (getCookie('user')) {
     const data = JSON.parse(getCookie('user'));
 

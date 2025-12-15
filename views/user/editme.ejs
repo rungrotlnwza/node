@@ -22,27 +22,27 @@
                 <div class="row g-3">
                   <div class="col-12 col-md-6 col-lg-4">
                     <label for="firstName" class="form-label text-light">ชื่อ <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control bg-dark text-light border-warning" id="firstName" name="firstName" value="สมชาย" required>
+                    <input type="text" class="form-control bg-dark text-light border-warning" id="firstName" name="firstName" required>
                     <div class="text-danger small" id="firstNameError"></div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-4">
                     <label for="lastName" class="form-label text-light">นามสกุล <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control bg-dark text-light border-warning" id="lastName" name="lastName" value="ใจดี" required>
+                    <input type="text" class="form-control bg-dark text-light border-warning" id="lastName" name="lastName" required>
                     <div class="text-danger small" id="lastNameError"></div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-4">
                     <label for="birthday" class="form-label text-light">วันเกิด</label>
-                    <input type="date" class="form-control bg-dark text-light border-warning" id="birthday" name="birthday" value="1992-01-15">
+                    <input type="date" class="form-control bg-dark text-light border-warning" id="birthday" name="birthday">
                     <div class="text-danger small" id="birthdayError"></div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-4">
                     <label for="phone" class="form-label text-light">เบอร์โทรศัพท์</label>
-                    <input type="tel" class="form-control bg-dark text-light border-warning" id="phone" name="phone" value="0812345678" required>
+                    <input type="tel" class="form-control bg-dark text-light border-warning" id="phone" name="phone" value="" required>
                     <div class="text-danger small" id="phoneError"></div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-6">
                     <label for="email" class="form-label text-light">อีเมล</label>
-                    <input type="email" class="form-control bg-dark text-light border-warning" id="email" name="email" value="somchai@example.com" required>
+                    <input type="email" class="form-control bg-dark text-light border-warning" id="email" name="email" required>
                     <div class="text-danger small" id="emailError"></div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-6">
@@ -72,24 +72,45 @@
                     </div>
                     <div class="text-danger small" id="educationError"></div>
                   </div>
-                </div>
-                <div class="form-section">
-                  <div class="mb-3">
-                    <label for="address" class="form-label">ที่อยู่</label>
-                    <textarea class="form-control bg-dark text-light border-warning" id="address" name="address" rows="3" placeholder="กรอกที่อยู่ของคุณ">123 ถนนสุขุมวิท แขวงคลองตัน เขตวัฒนา กรุงเทพฯ 10110</textarea>
-                    <div class="text-danger small" id="addressError"></div>
+                  <div class="col-12">
+                    <label class="form-label text-light">ที่อยู่ (จังหวัด)</label>
+
+                    <div class="row g-2">
+                      <!-- จังหวัด -->
+                      <div class="col-12 col-md-4">
+                        <select class="form-select bg-dark text-light border-warning" id="province" name="province_id" required>
+                          <option value="">จังหวัด</option>
+                        </select>
+                      </div>
+
+                      <!-- อำเภอ / เขต -->
+                      <div class="col-12 col-md-4">
+                        <select class="form-select bg-dark text-light border-warning" id="district" name="district_id" disabled required>
+                          <option value="">อำเภอ / เขต</option>
+                        </select>
+                      </div>
+
+                      <!-- ตำบล / แขวง -->
+                      <div class="col-12 col-md-4">
+                        <select class="form-select bg-dark text-light border-warning" id="subDistrict" name="sub_district_id" disabled required>
+                          <option value="">ตำบล / แขวง</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="text-danger small mt-1" id="addressError"></div>
                   </div>
                 </div>
               </div>
-              <div class="d-flex justify-content-between mt-4">
-                <a href="/private/user/profile.html" class="btn btn-outline-warning">
-                  <i class="fas fa-times me-1"></i>ยกเลิก
-                </a>
-                <button type="submit" class="btn btn-warning">
-                  <i class="fas fa-save me-1"></i>บันทึกข้อมูล
-                </button>
-              </div>
             </form>
+            <div class="d-flex justify-content-between mt-4">
+              <a href="/user/me" class="btn btn-outline-warning">
+                <i class="fas fa-times me-1"></i>ยกเลิก
+              </a>
+              <button onclick="update()" class="btn btn-warning">
+                <i class="fas fa-save me-1"></i>บันทึกข้อมูล
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -99,14 +120,129 @@
   <script>
     if (getCookie('user')) {
       const data = JSON.parse(getCookie('user'));
-
       document.getElementById("firstName").value = data.first_name || '-';
       document.getElementById("lastName").value = data.last_name || '-';
       document.getElementById("phone").value = data.phone || '-';
       document.getElementById("email").value = data.email || '-';
-      document.getElementById("address").value = data.address || '-';
-      document.getElementById("birthday").value = data.birthday || '-';
+      document.getElementById("birthday").value = data.birth_date || '-';
       document.getElementById("education_level").value = data.education_level || '-';
       document.getElementById("education_status").value = data.education_status || '-';
+    }
+    let rawData = []; // เก็บ data ทั้งก้อน
+
+    // โหลดข้อมูล
+    fetch('https://raw.githubusercontent.com/kongvut/thai-province-data/refs/heads/master/api/latest/province_with_district_and_sub_district.json')
+      .then(res => res.json())
+      .then(data => {
+        rawData = data;
+        renderProvinces(data);
+      });
+
+    function renderProvinces(data) {
+      const provinceSelect = document.getElementById('province');
+      provinceSelect.innerHTML = '<option value="">-- เลือกจังหวัด --</option>';
+
+      data.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.name_th; // ✅ ส่งชื่อ
+        opt.textContent = p.name_th;
+        provinceSelect.appendChild(opt);
+      });
+    }
+
+    // เลือกจังหวัด
+    document.getElementById('province').addEventListener('change', function() {
+      const provinceName = this.value;
+      const districtSelect = document.getElementById('district');
+      const subDistrictSelect = document.getElementById('subDistrict');
+
+      districtSelect.innerHTML = '<option value="">-- เลือกอำเภอ/เขต --</option>';
+      subDistrictSelect.innerHTML = '<option value="">-- เลือกตำบล/แขวง --</option>';
+      subDistrictSelect.disabled = true;
+
+      if (!provinceName) {
+        districtSelect.disabled = true;
+        return;
+      }
+
+      // ✅ หา province ด้วย name_th
+      const province = rawData.find(p => p.name_th === provinceName);
+      if (!province) return;
+
+      province.districts.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.name_th; // ✅ ส่งชื่อ
+        opt.textContent = d.name_th;
+        districtSelect.appendChild(opt);
+      });
+
+      districtSelect.disabled = false;
+    });
+
+    // เลือกอำเภอ/เขต
+    document.getElementById('district').addEventListener('change', function() {
+      const districtName = this.value;
+      const subDistrictSelect = document.getElementById('subDistrict');
+
+      subDistrictSelect.innerHTML = '<option value="">-- เลือกตำบล/แขวง --</option>';
+
+      if (!districtName) {
+        subDistrictSelect.disabled = true;
+        return;
+      }
+
+      const provinceName = document.getElementById('province').value;
+
+      // ✅ หา province ด้วย name_th
+      const province = rawData.find(p => p.name_th === provinceName);
+      if (!province) return;
+
+      // ✅ หา district ด้วย name_th
+      const district = province.districts.find(d => d.name_th === districtName);
+      if (!district) return;
+
+      district.sub_districts.forEach(sd => {
+        const opt = document.createElement('option');
+        opt.value = sd.name_th; // ✅ ส่งชื่อ
+        opt.textContent = sd.name_th;
+        subDistrictSelect.appendChild(opt);
+      });
+
+      subDistrictSelect.disabled = false;
+    });
+
+    function update() {
+      fetch('/api/update', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('token')}`
+          },
+          body: JSON.stringify({
+            first_name: firstName.value,
+            last_name: lastName.value,
+            phone: phone.value,
+            email: email.value,
+            birth_date: birthday.value,
+            education_level: education_level.value,
+            education_status: education_status.value,
+            province_name: province.value,
+            district_name: district.value,
+            sub_district_name: subDistrict.value
+          })
+        })
+        .then(res => {
+          if (!res.ok) throw new Error('update failed');
+          return res.json();
+        })
+        .then(data => {
+          deleteCookie('user');
+          // setCookie('user', JSON.stringify(data), 1);
+          updateCookieUser();
+
+          // 🔥 reload หลัง set เสร็จ
+          location.reload();
+        })
+        .catch(console.error);
     }
   </script>

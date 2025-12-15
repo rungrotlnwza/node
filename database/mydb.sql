@@ -10,11 +10,16 @@ INSERT INTO `auth` (`id`, `username`, `password`, `role`) VALUES
 CREATE TABLE `user_detail` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `auth_id` INT(11) NOT NULL,
-  `name` VARCHAR(100) NOT NULL,
-  `lastname` VARCHAR(100) NOT NULL,
-  `phone` VARCHAR(20) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
-  `address` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(100),
+  `lastname` VARCHAR(100),
+  `birth_date` DATE,
+  `phone` VARCHAR(20),
+  `email` VARCHAR(100),
+  `education_level` VARCHAR(255),
+  `education_status` VARCHAR(255),
+  `province_name` VARCHAR(255),
+  `district_name` VARCHAR(255),
+  `sub_district_name` VARCHAR(255),
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_email` (`email`)
 );

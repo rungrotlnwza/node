@@ -53,31 +53,33 @@ if (toggleBtn) {
         if (overlay) overlay.classList.toggle('show');
     });
 }
+async function updateCookieUser() {
+    if (getCookie('token')) {
+        if (!getCookie('user')) {
 
-if (getCookie('token')) {
-    if (!getCookie('user')) {
-
-        fetch('/api/me', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getCookie('token')}`
-            }
-        })
-            .then(res => {
-                if (!res.ok) throw new Error('Unauthorized');
-                return res.json();
+            await fetch('/api/me', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${getCookie('token')}`
+                }
             })
-            .then(data => {
-                // cookie ต้องเป็น string + encode
-                setCookie(
-                    'user',
-                    JSON.stringify(data),
-                    1
-                );
-            })
-            .catch(err => {
-                console.error(err);
-            });
+                .then(res => {
+                    if (!res.ok) throw new Error('Unauthorized');
+                    return res.json();
+                })
+                .then(data => {
+                    // cookie ต้องเป็น string + encode
+                    setCookie(
+                        'user',
+                        JSON.stringify(data),
+                        1
+                    );
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
     }
 }
+updateCookieUser();
