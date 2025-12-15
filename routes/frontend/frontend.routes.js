@@ -14,7 +14,10 @@ router.get('/admin/admin', (req, res) => [
     res.render(path.join(__dirname, '../../views/admin/admin.ejs'))
 ])
 router.get('/user/me', (req, res) => {
-    res.render(path.join(__dirname, '../../views/user/profile.ejs'))
+    res.render(path.join(__dirname, '../../views/user/me.ejs'))
+})
+router.get('/user/editme', (req, res) => {
+    res.render(path.join(__dirname, '../../views/user/editme.ejs'))
 })
 router.get('/user/changpassword', (req, res) => {
     res.render(path.join(__dirname, '../../views/user/changpassword.ejs'))

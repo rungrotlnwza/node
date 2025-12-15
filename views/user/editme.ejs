@@ -1,0 +1,112 @@
+<%- include('../components/header/user.header.ejs') %>
+<div class="container-fluid bg-dark mt-5">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card bg-dark border border-warning">
+          <!-- Edit Header -->
+          <div class="card-header bg-warning text-dark text-center">
+            <h3 class="mb-1">
+              <i class="fas fa-edit me-2"></i>แก้ไขข้อมูลส่วนตัว
+            </h3>
+            <p class="mb-0">อัปเดตข้อมูลส่วนตัวของคุณ</p>
+          </div>
+          <!-- Edit Form -->
+          <div class="card-body p-4">
+            <form id="editProfileForm" novalidate>
+              <!-- Personal Information Section -->
+              <div class="bg-secondary rounded p-3 mb-4">
+                <h6 class="text-warning border-bottom border-warning pb-2 mb-3">
+                  <i class="fas fa-user me-2"></i>ข้อมูลส่วนตัว
+                </h6>
+                <div class="row g-3">
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <label for="firstName" class="form-label text-light">ชื่อ <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control bg-dark text-light border-warning" id="firstName" name="firstName" value="สมชาย" required>
+                    <div class="text-danger small" id="firstNameError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <label for="lastName" class="form-label text-light">นามสกุล <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control bg-dark text-light border-warning" id="lastName" name="lastName" value="ใจดี" required>
+                    <div class="text-danger small" id="lastNameError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <label for="birthday" class="form-label text-light">วันเกิด</label>
+                    <input type="date" class="form-control bg-dark text-light border-warning" id="birthday" name="birthday" value="1992-01-15">
+                    <div class="text-danger small" id="birthdayError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <label for="phone" class="form-label text-light">เบอร์โทรศัพท์</label>
+                    <input type="tel" class="form-control bg-dark text-light border-warning" id="phone" name="phone" value="0812345678" required>
+                    <div class="text-danger small" id="phoneError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <label for="email" class="form-label text-light">อีเมล</label>
+                    <input type="email" class="form-control bg-dark text-light border-warning" id="email" name="email" value="somchai@example.com" required>
+                    <div class="text-danger small" id="emailError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <label class="form-label text-light">ระดับการศึกษา</label>
+
+                    <div class="row">
+                      <div class="col-6">
+                        <select class="form-select bg-dark text-light border-warning" id="education_level" name="education_level" required>
+                          <option value="">ระดับการศึกษา</option>
+                          <option value="primary">ประถมศึกษา</option>
+                          <option value="secondary">มัธยมศึกษา</option>
+                          <option value="vocational">ปวช./ปวส.</option>
+                          <option value="bachelor">ปริญญาตรี</option>
+                          <option value="master">ปริญญาโท</option>
+                          <option value="doctor">ปริญญาเอก</option>
+                        </select>
+                      </div>
+
+                      <div class="col-6">
+                        <select class="form-select bg-dark text-light border-warning" id="education_status" name="education_status" required>
+                          <option value="">สถานะ</option>
+                          <option value="studying">กำลังศึกษา</option>
+                          <option value="graduated">จบแล้ว</option>
+                          <option value="dropped">ไม่ได้เรียนต่อ</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="text-danger small" id="educationError"></div>
+                  </div>
+                </div>
+                <div class="form-section">
+                  <div class="mb-3">
+                    <label for="address" class="form-label">ที่อยู่</label>
+                    <textarea class="form-control bg-dark text-light border-warning" id="address" name="address" rows="3" placeholder="กรอกที่อยู่ของคุณ">123 ถนนสุขุมวิท แขวงคลองตัน เขตวัฒนา กรุงเทพฯ 10110</textarea>
+                    <div class="text-danger small" id="addressError"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-4">
+                <a href="/private/user/profile.html" class="btn btn-outline-warning">
+                  <i class="fas fa-times me-1"></i>ยกเลิก
+                </a>
+                <button type="submit" class="btn btn-warning">
+                  <i class="fas fa-save me-1"></i>บันทึกข้อมูล
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('../components/footer/user.footer.ejs') %>
+  <script>
+    if (getCookie('user')) {
+      const data = JSON.parse(getCookie('user'));
+
+      document.getElementById("firstName").value = data.first_name || '-';
+      document.getElementById("lastName").value = data.last_name || '-';
+      document.getElementById("phone").value = data.phone || '-';
+      document.getElementById("email").value = data.email || '-';
+      document.getElementById("address").value = data.address || '-';
+      document.getElementById("birthday").value = data.birthday || '-';
+      document.getElementById("education_level").value = data.education_level || '-';
+      document.getElementById("education_status").value = data.education_status || '-';
+    }
+  </script>

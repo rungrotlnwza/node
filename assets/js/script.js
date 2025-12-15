@@ -6,7 +6,7 @@ function closeSidebar() {
     if (overlay) overlay.classList.remove('show');
 }
 
-if(getCookie('token')){
+if (getCookie('token')) {
     document.getElementById('logout').classList.remove('d-none');
     document.getElementById('logout').classList.add('d-block');
 
@@ -15,7 +15,7 @@ if(getCookie('token')){
 
     document.getElementById('register').classList.remove('d-block');
     document.getElementById('register').classList.add('d-none');
-}else{
+} else {
     document.getElementById('logout').classList.remove('d-block');
     document.getElementById('logout').classList.add('d-none');
 
@@ -28,8 +28,9 @@ if(getCookie('token')){
     document.getElementById('dropdown').classList.remove('d-block');
     document.getElementById('dropdown').classList.add('d-none');
 }
-function logout(){
+function logout() {
     deleteCookie('token');
+    deleteCookie('user');
     location.reload();
 }
 
@@ -51,4 +52,32 @@ if (toggleBtn) {
         if (sidebar) sidebar.classList.toggle('show');
         if (overlay) overlay.classList.toggle('show');
     });
+}
+
+if (getCookie('token')) {
+    if (!getCookie('user')) {
+
+        fetch('/api/me', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getCookie('token')}`
+            }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error('Unauthorized');
+                return res.json();
+            })
+            .then(data => {
+                // cookie ต้องเป็น string + encode
+                setCookie(
+                    'user',
+                    JSON.stringify(data),
+                    1
+                );
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
 }
