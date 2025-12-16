@@ -11,7 +11,8 @@ router.get('/me', verifyToken, require('../../lib/controller/auth/me.controller'
 router.put('/update', verifyToken, require('../../lib/controller/auth/updateme.controller'))
 
 // lesson
-router.get('/lesson', verifyToken, require('../../lib/controller/lesson/lesson.controller'))
+router.get('/lesson', verifyToken, require('../../lib/controller/lesson/get-lesson.controller'))
 router.post('/add-lesson', verifyToken, upload, require('../../lib/controller/lesson/add-lesson.controller'))
+router.delete('/delete-lesson/:id', verifyToken, require('../../lib/controller/lesson/delete-lesson.controller'))
 
 module.exports = router
