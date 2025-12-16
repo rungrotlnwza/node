@@ -93,3 +93,62 @@
   </div>
 </div>
 <%- include('../components/footer/admin.footer.ejs') %>
+<script>
+  if (!getCookie('token')) {
+    window.location.href = '/'
+  }
+  const container = document.getElementById('lesson-list');
+  const template = document.getElementById('lesson-card-template');
+
+  fetch('/api/lesson', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getCookie('token')
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      // summary
+      document.getElementById('total').innerText = data.summary.total;
+      document.getElementById('status_open').innerText = data.summary.status_open;
+      document.getElementById('status_close').innerText = data.summary.status_close;
+
+      // clear old cards
+      container.innerHTML = '';
+      console.log(data);
+      // render lessons
+      data.lessons.forEach(lesson => {
+        const clone = template.content.cloneNode(true);
+
+        // inject data
+        clone.querySelector('.lesson-id').textContent = lesson.lesson_id;
+        clone.querySelector('.lesson-category').textContent = lesson.lesson_category;
+        clone.querySelector('.lesson-name').textContent = lesson.lesson_name;
+        clone.querySelector('.lesson-level').textContent = lesson.lesson_level;
+        clone.querySelector('.lesson-created-by').textContent = lesson.created_by;
+
+        // status badge
+        const statusBadge = clone.querySelector('.lesson-status');
+        statusBadge.textContent = lesson.status.toUpperCase();
+        statusBadge.classList.add(
+          lesson.status === 'open' ? 'bg-success' : 'bg-secondary'
+        );
+
+        // date
+        const date = new Date(lesson.updated_at);
+        clone.querySelector('.lesson-updated-at').textContent =
+          `อัปเดตล่าสุด: ${date.toLocaleDateString('th-TH', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      })}`;
+
+        // render
+        container.appendChild(clone);
+      });
+    })
+    .catch(err => {
+      console.error('โหลดบทเรียนล้มเหลว:', err);
+    });
+</script>

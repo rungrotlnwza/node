@@ -48,3 +48,18 @@ CREATE TABLE `level_skill` (
 
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `lesson` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `lesson_name` VARCHAR(255) NOT NULL,
+  `lesson_category` VARCHAR(255) NOT NULL,
+  `lesson_level` ENUM('A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'A1',
+  `lesson_status` ENUM('open','close') NOT NULL DEFAULT 'close',
+  `lesson_content` JSON NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT(11) NOT NULL,
+  `updated_by` INT(11) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
