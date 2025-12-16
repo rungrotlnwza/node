@@ -22,4 +22,7 @@ router.get('/user/editme', (req, res) => {
 router.get('/user/changpassword', (req, res) => {
     res.render(path.join(__dirname, '../../views/user/changpassword.ejs'))
 })
+router.get('/t', (req, res) => {
+    res.render(path.join(__dirname, '../../views/components/t.ejs'))
+})
 module.exports = router;
