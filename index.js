@@ -19,7 +19,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // routes (last)
 app.use(require('./routes/routes'));
 

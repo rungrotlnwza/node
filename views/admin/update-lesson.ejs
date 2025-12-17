@@ -1,33 +1,28 @@
 <%- include('../components/header/admin.header.ejs') %>
 
 <div class="container-fluid p-3">
-  <!-- Page header -->
   <div class="row mb-4">
-    <div class="col-12">
-      <h1 class="fw-bold mb-1">เพิ่มบทเรียนใหม่</h1>
-      <p class="text-muted mb-0">จัดการเนื้อหาบทเรียน และหมวดหมู่</p>
+    <div class="col-12 text-center text-md-start">
+      <h1 class="fw-bold mb-1">แก้ไขบทเรียน</h1>
+      <p class="text-light mb-0">ดึงข้อมูลจาก API /api/lesson/:id และเติมลงฟอร์ม</p>
     </div>
   </div>
 
-  <!-- Form -->
   <form id="lesson-form" class="row g-4">
-
     <!-- Left: Basic info -->
     <div class="col-12 col-lg-6">
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body">
           <h5 class="fw-bold mb-3">ข้อมูลบทเรียน</h5>
 
-          <!-- Lesson name -->
           <div class="mb-3">
             <label for="lesson_name" class="form-label">ชื่อบทเรียน</label>
-            <input id="lesson_name" type="text" class="form-control" name="lesson_name" placeholder="เช่น AUTHOR’S PURPOSE" required>
+            <input id="lesson_name" type="text" class="form-control" required>
           </div>
 
-          <!-- Category -->
           <div class="mb-3">
             <label for="lesson_category" class="form-label">หมวดหมู่</label>
-            <select class="form-select" id="lesson_category" name="lesson_category" required>
+            <select class="form-select" id="lesson_category" required>
               <option value="">-- เลือกหมวดหมู่ --</option>
               <option value="reading">Reading</option>
               <option value="listening">Listening</option>
@@ -38,10 +33,9 @@
             </select>
           </div>
 
-          <!-- Level -->
           <div class="mb-3">
             <label for="lesson_level" class="form-label">ระดับ</label>
-            <select class="form-select" id="lesson_level" name="lesson_level" required>
+            <select class="form-select" id="lesson_level" required>
               <option value="">-- เลือกระดับ --</option>
               <option value="A1">A1</option>
               <option value="A2">A2</option>
@@ -52,16 +46,15 @@
             </select>
           </div>
 
-          <!-- Status -->
           <div class="mb-0">
-            <label class="form-label d-block">สถานะบทเรียน</label>
+            <label class="form-label d-block">สถานะ</label>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="status" id="status_open" value="open" checked>
-              <label class="form-check-label" for="status_open">เปิดใช้งาน</label>
+              <input class="form-check-input" type="radio" name="status" id="status_open" value="open">
+              <label class="form-check-label" for="status_open">เปิด</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="status" id="status_close" value="close">
-              <label class="form-check-label" for="status_close">ปิดใช้งาน</label>
+              <label class="form-check-label" for="status_close">ปิด</label>
             </div>
           </div>
 
@@ -75,216 +68,145 @@
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="fw-bold mb-0">เนื้อหาบทเรียน</h5>
-            <button type="button" class="btn btn-sm btn-outline-primary" id="add-paragraph-btn">
-              + เพิ่มเนื้อหา
-            </button>
+            <button type="button" class="btn btn-sm btn-outline-primary" id="add-paragraph-btn">+ เพิ่มเนื้อหา</button>
           </div>
-
-          <!-- dynamic content -->
           <div id="lesson-content-list" class="d-flex flex-column gap-3"></div>
         </div>
       </div>
     </div>
-    <template id="content-type-template">
-      <div class="border rounded p-3 bg-light">
-        <div class="mb-2">
-          <label class="form-label">ประเภทเนื้อหา</label>
-          <select class="form-select content-type-select">
-            <option value="">-- เลือกประเภท --</option>
-            <option value="text">ข้อความ</option>
-            <option value="image">รูปภาพ</option>
-            <option value="pdf">ไฟล์ PDF</option>
-          </select>
-        </div>
-
-        <div class="content-editor"></div>
-
-        <div class="text-end mt-2">
-          <button type="button" class="btn btn-sm btn-outline-danger remove-content">
-            ลบ
-          </button>
-        </div>
-      </div>
-    </template>
-    <template id="text-content-template">
-      <div>
-        <label class="form-label">เนื้อหาข้อความ</label>
-        <textarea class="form-control content-text" rows="4" placeholder="พิมพ์เนื้อหา..."></textarea>
-      </div>
-    </template>
-    <template id="image-content-template">
-      <div>
-        <label class="form-label">อัปโหลดรูปภาพ</label>
-        <input type="file" class="form-control content-image" accept="image/*">
-      </div>
-    </template>
-    <template id="pdf-content-template">
-      <div>
-        <label class="form-label">อัปโหลดไฟล์ PDF</label>
-        <input type="file" class="form-control content-pdf" accept="application/pdf">
-      </div>
-    </template>
-
 
     <!-- Actions -->
     <div class="col-12">
       <div class="d-flex justify-content-end gap-2">
-        <a href="/admin/lesson" class="btn btn-outline-secondary">
-          ยกเลิก
-        </a>
-        <button onclick="addlesson()" class="btn btn-primary">
-          บันทึกบทเรียน
-        </button>
+        <a href="/admin/lesson" class="btn btn-outline-secondary">ยกเลิก</a>
+        <button type="button" class="btn btn-primary" id="save-btn">บันทึก</button>
       </div>
     </div>
-
   </form>
-</div>
+  <template id="content-type-template">
+    <div class="border p-3 rounded mb-3 position-relative bg-white shadow-sm content-block">
+      <label class="form-label fw-bold">ประเภทเนื้อหา</label>
+      <select class="form-select content-type-select mb-2">
+        <option value="">-- เลือกประเภท --</option>
+        <option value="text">ข้อความ (Text)</option>
+        <option value="image">รูปภาพ (Image)</option>
+        <option value="pdf">ไฟล์ PDF</option>
+      </select>
+      <div class="content-editor"></div>
+      <button type="button" class="btn btn-danger btn-sm remove-content position-absolute top-0 end-0 m-2">ลบ</button>
+    </div>
+  </template>
 
-<%- include('../components/footer/admin.footer.ejs') %>
-<script>
-  const list = document.getElementById('lesson-content-list');
-  const addBtn = document.getElementById('add-paragraph-btn');
+  <template id="text-content-template">
+    <textarea class="form-control content-text" rows="3" placeholder="กรอกเนื้อหา..."></textarea>
+  </template>
 
-  const typeTemplate = document.getElementById('content-type-template');
-  const textTemplate = document.getElementById('text-content-template');
-  const imageTemplate = document.getElementById('image-content-template');
-  const pdfTemplate = document.getElementById('pdf-content-template');
+  <template id="image-content-template">
+    <div class="preview-area mb-2"></div>
+    <input type="file" class="form-control content-image" accept="image/*">
+  </template>
 
-  addBtn.addEventListener('click', () => {
-    const block = typeTemplate.content.cloneNode(true);
-    const wrapper = block.querySelector('.border');
+  <template id="pdf-content-template">
+    <div class="preview-area mb-2"></div>
+    <input type="file" class="form-control content-pdf" accept="application/pdf">
+  </template>
 
-    const select = block.querySelector('.content-type-select');
-    const editor = block.querySelector('.content-editor');
-    const removeBtn = block.querySelector('.remove-content');
+  <script>
+    const list = document.getElementById('lesson-content-list');
+    const addBtn = document.getElementById('add-paragraph-btn');
+    const urlParams = new URLSearchParams(window.location.search);
+    const lessonId = urlParams.get('id');
 
-    select.addEventListener('change', () => {
-      editor.innerHTML = '';
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
-      let content;
-      switch (select.value) {
-        case 'text':
-          content = textTemplate.content.cloneNode(true);
-          break;
-        case 'image':
-          content = imageTemplate.content.cloneNode(true);
-          break;
-        case 'pdf':
-          content = pdfTemplate.content.cloneNode(true);
-          break;
-        default:
-          return;
+    // ฟังก์ชันสร้าง Block เนื้อหา
+    function renderBlock(type = '', value = '', fileUrl = '') {
+      const typeTemplate = document.getElementById('content-type-template');
+      const block = typeTemplate.content.cloneNode(true);
+      const wrapper = block.querySelector('.content-block');
+      const select = block.querySelector('.content-type-select');
+      const editor = block.querySelector('.content-editor');
+
+      select.addEventListener('change', () => updateEditor(editor, select.value));
+      block.querySelector('.remove-content').addEventListener('click', () => wrapper.remove());
+
+      if (type) {
+        select.value = type === 'file' ? 'image' : type; // ปรับถ้า DB เก็บเป็น file
+        updateEditor(editor, select.value, value, fileUrl);
       }
-
-      editor.appendChild(content);
-    });
-
-    removeBtn.addEventListener('click', () => {
-      wrapper.remove();
-    });
-
-    list.appendChild(block);
-  });
-
-  function addlesson() {
-    // -----------------------------
-    // 0) ตรวจสอบค่าหลักก่อน
-    // -----------------------------
-    const lessonName = document.getElementById('lesson_name').value.trim();
-    const lessonCategory = document.getElementById('lesson_category').value;
-    const lessonLevel = document.getElementById('lesson_level').value;
-    const status = document.querySelector('input[name="status"]:checked').value;
-
-    if (!lessonName) {
-      alert('กรุณากรอกชื่อบทเรียน');
-      return;
-    }
-    if (!lessonCategory) {
-      alert('กรุณาเลือกหมวดหมู่');
-      return;
-    }
-    if (!lessonLevel) {
-      alert('กรุณาเลือกระดับ');
-      return;
+      list.appendChild(block);
     }
 
-    // -----------------------------
-    // 1) build lesson_content
-    // -----------------------------
-    const lesson_content = [];
+    function updateEditor(container, type, value = '', fileUrl = '') {
+      container.innerHTML = '';
+      const templateId = type === 'text' ? 'text-content-template' : (type === 'image' ? 'image-content-template' : 'pdf-content-template');
+      const content = document.getElementById(templateId).content.cloneNode(true);
 
-    document.querySelectorAll('#lesson-content-list > .border')
-      .forEach(block => {
+      if (type === 'text') {
+        content.querySelector('.content-text').value = value;
+      } else if (fileUrl) {
+        const preview = content.querySelector('.preview-area');
+        if (type === 'image') {
+          preview.innerHTML = `<img src="${fileUrl}" class="img-thumbnail" style="max-height: 150px">`;
+        } else {
+          preview.innerHTML = `<a href="${fileUrl}" target="_blank" class="btn btn-sm btn-outline-info">เปิดดูไฟล์เดิม</a>`;
+        }
+      }
+      container.appendChild(content);
+    }
+
+    // โหลดข้อมูล
+    if (lessonId) {
+      fetch(`/api/lesson?id=${lessonId}`, {
+          headers: {
+            'Authorization': 'Bearer ' + getCookie('token')
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          const l = data.lesson;
+          document.getElementById('lesson_name').value = l.lesson_name;
+          document.getElementById('lesson_category').value = l.lesson_category;
+          document.getElementById('lesson_level').value = l.lesson_level;
+          const statusRadio = document.querySelector(`input[name="status"][value="${l.status}"]`);
+          if (statusRadio) statusRadio.checked = true;
+
+          l.lesson_content.forEach(item => renderBlock(item.type === 'file' ? 'image' : item.type, item.value, item.url));
+        });
+    }
+
+    addBtn.addEventListener('click', () => renderBlock());
+
+    // บันทึก (บันทึก Index ให้ Backend ทำงานง่าย)
+    document.getElementById('save-btn').addEventListener('click', async () => {
+      const body = new FormData();
+      body.append('lesson_name', document.getElementById('lesson_name').value);
+      body.append('lesson_category', document.getElementById('lesson_category').value);
+      body.append('lesson_level', document.getElementById('lesson_level').value);
+      body.append('status', document.querySelector('input[name="status"]:checked').value);
+
+      document.querySelectorAll('.content-block').forEach((block, i) => {
         const type = block.querySelector('.content-type-select').value;
-        if (!type) return;
-
+        body.append(`lesson_content[${i}][type]`, type);
         if (type === 'text') {
-          const value = block.querySelector('.content-text').value.trim();
-          if (value) {
-            lesson_content.push({
-              type: 'text',
-              value
-            });
-          }
-        } else if (type === 'image') {
-          const file = block.querySelector('.content-image').files[0];
-          if (file) {
-            lesson_content.push({
-              type: 'image',
-              file
-            });
-          }
-        } else if (type === 'pdf') {
-          const file = block.querySelector('.content-pdf').files[0];
-          if (file) {
-            lesson_content.push({
-              type: 'pdf',
-              file
-            });
-          }
+          body.append(`lesson_content[${i}][value]`, block.querySelector('.content-text').value);
+        } else {
+          const file = block.querySelector('input[type="file"]').files[0];
+          if (file) body.append(`lesson_content[${i}][file]`, file);
         }
       });
 
-    if (lesson_content.length === 0) {
-      alert('กรุณาเพิ่มเนื้อหาบทเรียนอย่างน้อย 1 บล็อก');
-      return;
-    }
-
-    // -----------------------------
-    // 2) build FormData
-    // -----------------------------
-    const body = new FormData();
-    body.append('lesson_name', lessonName);
-    body.append('lesson_category', lessonCategory);
-    body.append('lesson_level', lessonLevel);
-    body.append('status', status);
-
-    lesson_content.forEach((c, i) => {
-      body.append(`lesson_content[${i}][type]`, c.type);
-      if (c.type === 'text') {
-        body.append(`lesson_content[${i}][value]`, c.value);
-      } else if (c.file) {
-        body.append(`lesson_content[${i}][file]`, c.file);
-      }
-    });
-
-    // -----------------------------
-    // 3) fetch
-    // -----------------------------
-    fetch('/api/add-lesson', {
-        method: 'POST',
+      const res = await fetch(`/api/update-lesson/${lessonId}`, {
+        method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${getCookie('token')}`
+          'Authorization': 'Bearer ' + getCookie('token')
         },
         body
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log('SUCCESS:', data);
-      })
-      .catch(err => {
-        console.error('ERROR:', err);
       });
-  }
-</script>
+      if (res.ok) alert('บันทึกสำเร็จ');
+    });
+  </script>

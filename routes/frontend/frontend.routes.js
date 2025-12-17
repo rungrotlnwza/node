@@ -25,4 +25,9 @@ router.get('/user/changpassword', (req, res) => {
 router.get('/admin/addlesson', (req, res) => {
     res.render(path.join(__dirname, '../../views/admin/add-lesson.ejs'))
 })
+router.get('/admin/lesson/update', (req, res) => {
+    res.render(path.join(__dirname, '../../views/admin/update-lesson.ejs'));
+});
+
+
 module.exports = router;
