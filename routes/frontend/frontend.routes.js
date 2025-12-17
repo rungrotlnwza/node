@@ -28,6 +28,10 @@ router.get('/admin/addlesson', (req, res) => {
 router.get('/admin/lesson/update', (req, res) => {
     res.render(path.join(__dirname, '../../views/admin/update-lesson.ejs'));
 });
-
-
+router.get('/eol', (req, res) => {
+    res.render(path.join(__dirname, '../../views/eol/home.ejs'))
+})
+router.get('/eol/lesson', (req, res) => {
+    res.render(path.join(__dirname, '../../views/eol/lesson.ejs'))
+})
 module.exports = router;

@@ -1,0 +1,160 @@
+<%- include('../components/header/header.ejs') %>
+
+<div class="container-fluid p-3">
+  <div class="row mb-4">
+    <div class="col-12 text-center text-md-start">
+      <h1 class="fw-bold mb-1">แสดงตัวอย่างบทเรียน</h1>
+      <p class="text-light mb-0">มุมมอง Preview ข้อมูลจากระบบ</p>
+    </div>
+  </div>
+
+  <div id="lesson-preview-container" class="row g-4">
+  </div>
+
+  <div class="col-12 mt-4">
+    <div class="d-flex justify-content-end gap-2">
+      <a href="/admin/lesson" class="btn btn-primary px-4">ย้อนกลับ</a>
+    </div>
+  </div>
+</div>
+
+<template id="main-structure-template">
+  <div class="col-12 col-lg-6">
+    <div class="card  -0 h-100">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3 -bottom pb-2">ข้อมูลบทเรียน</h5>
+        <div class="mb-3">
+          <label class="fw-bold text-muted small d-block">ชื่อบทเรียน</label>
+          <div class="preview-name fs-5"></div>
+        </div>
+        <div class="mb-3">
+          <label class="fw-bold text-muted small d-block">หมวดหมู่</label>
+          <div class="preview-category text-capitalize"></div>
+        </div>
+        <div class="mb-3">
+          <label class="fw-bold text-muted small d-block">ระดับ</label>
+          <div class="preview-level"></div>
+        </div>
+        <div class="mb-0">
+          <label class="fw-bold text-muted small d-block">สถานะ</label>
+          <div class="preview-status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-6">
+    <div class="card  -0 h-100">
+      <div class="card-body">
+        <h5 class="fw-bold mb-3 -bottom pb-2">เนื้อหาบทเรียน</h5>
+        <div id="content-list-target" class="d-flex flex-column gap-3">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="preview-text-template">
+  <p class="mb-0 item-value" style="white-space: pre-line;"></p>
+</template>
+
+<template id="preview-image-template">
+  <img src="" class="img-fluid   d-block mx-auto item-url" style="max-height: 250px;">
+</template>
+
+<template id="preview-pdf-template">
+  <div class="border p-3 rounded bg-light shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <label class="badge bg-danger">เอกสาร PDF</label>
+      <a href="" target="_blank" class="btn btn-sm btn-link item-link-text">เปิดในหน้าต่างใหม่</a>
+    </div>
+    <div class="pdf-container" style="height: 500px;">
+      <embed src="" type="application/pdf" width="100%" height="100%" class="rounded border item-url">
+    </div>
+  </div>
+</template>
+
+<template id="status-open-template">
+  <span class="badge bg-success">เปิดใช้งาน (Open)</span>
+</template>
+<template id="status-close-template">
+  <span class="badge bg-secondary">ปิดใช้งาน (Closed)</span>
+</template>
+<%- include('../components/footer/footer.ejs') %>
+<script>
+  const mainContainer = document.getElementById('lesson-preview-container');
+  const urlParams = new URLSearchParams(window.location.search);
+  const lessonId = urlParams.get('id');
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  // ฟังก์ชันช่วยดึง Template มาใช้งาน
+  function getTemplateClone(templateId) {
+    const template = document.getElementById(templateId);
+    return template.content.cloneNode(true);
+  }
+
+  function renderLesson(lesson) {
+    // 1. สร้างโครงสร้างหลัก
+    const mainClone = getTemplateClone('main-structure-template');
+
+    // เติมข้อมูล Text ทั่วไป
+    mainClone.querySelector('.preview-name').textContent = lesson.lesson_name;
+    mainClone.querySelector('.preview-category').textContent = lesson.lesson_category;
+    mainClone.querySelector('.preview-level').textContent = lesson.lesson_level;
+
+    // เติม Status โดยใช้ Template แทน String
+    const statusTarget = mainClone.querySelector('.preview-status');
+    const statusTempId = lesson.status === 'open' ? 'status-open-template' : 'status-close-template';
+    statusTarget.appendChild(getTemplateClone(statusTempId));
+
+    const contentTarget = mainClone.querySelector('#content-list-target');
+
+    // 2. วนลูปสร้างเนื้อหาแต่ละชิ้น
+    lesson.lesson_content.forEach(item => {
+      let itemClone;
+      const type = item.type === 'file' ? 'image' : item.type; // ปรับ logic ประเภท
+
+      if (type === 'text') {
+        itemClone = getTemplateClone('preview-text-template');
+        itemClone.querySelector('.item-value').textContent = item.value;
+      } else if (type === 'image') {
+        itemClone = getTemplateClone('preview-image-template');
+        itemClone.querySelector('.item-url').src = item.url;
+      } else if (type === 'pdf') {
+        itemClone = getTemplateClone('preview-pdf-template');
+
+        // 1. ส่ง URL เข้าไปที่ tag <embed> เพื่อให้ Browser render PDF
+        const pdfEmbed = itemClone.querySelector('.item-url');
+        pdfEmbed.src = item.url;
+
+        // 2. (Optional) ส่ง URL ไปที่ปุ่ม "เปิดในหน้าต่างใหม่" เผื่อ user อยากดูเต็มหน้าจอ
+        const pdfLink = itemClone.querySelector('.item-link-text');
+        pdfLink.href = item.url;
+      }
+
+      if (itemClone) contentTarget.appendChild(itemClone);
+    });
+
+    // แสดงผลขึ้นหน้าจอ
+    mainContainer.appendChild(mainClone);
+  }
+
+  // Fetch ข้อมูล
+  if (lessonId) {
+    fetch(`/api/lesson?id=${lessonId}`, {
+        headers: {
+          'Authorization': 'Bearer ' + getCookie('token')
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        renderLesson(data.lesson);
+      })
+      .catch(err => console.error('Error:', err));
+  }
+</script>

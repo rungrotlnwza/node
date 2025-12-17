@@ -151,7 +151,7 @@
         clone.querySelector('.lesson-updated-at').textContent =
           `อัปเดตล่าสุด: ${date.toLocaleDateString('th-TH', {day: '2-digit', month: 'short', year: 'numeric'})}`;
 
-        clone.querySelector('.btn-view').href = `/eol/lesson?${lesson.lesson_id}`;
+        clone.querySelector('.btn-view').href = `/eol/lesson?id=${lesson.lesson_id}`;
         clone.querySelector('.btn-edit').href = `/admin/lesson/update?id=${lesson.lesson_id}`;
 
         // set delete button
