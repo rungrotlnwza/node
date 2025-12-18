@@ -161,13 +161,14 @@
 
     // โหลดข้อมูล
     if (lessonId) {
-      fetch(`/api/lesson?id=${lessonId}`, {
+      fetch(`/api/lesson/${lessonId}`, {
           headers: {
             'Authorization': 'Bearer ' + getCookie('token')
           }
         })
         .then(res => res.json())
         .then(data => {
+          console.log(data)
           const l = data.lesson;
           document.getElementById('lesson_name').value = l.lesson_name;
           document.getElementById('lesson_category').value = l.lesson_category;

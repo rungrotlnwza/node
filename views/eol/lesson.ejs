@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12 col-lg-6">
+  <div class="col-12">
     <div class="card  -0 h-100">
       <div class="card-body">
         <h5 class="fw-bold mb-3 -bottom pb-2">เนื้อหาบทเรียน</h5>
@@ -146,7 +146,7 @@
 
   // Fetch ข้อมูล
   if (lessonId) {
-    fetch(`/api/lesson?id=${lessonId}`, {
+    fetch(`/api/lesson/${lessonId}`, {
         headers: {
           'Authorization': 'Bearer ' + getCookie('token')
         }

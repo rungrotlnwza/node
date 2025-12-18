@@ -114,7 +114,7 @@
       newUrl.searchParams.set('page', page);
       window.history.replaceState({}, '', newUrl);
 
-      const res = await fetch(`/api/lesson?page=${page}&limit=${limit}`, {
+      const res = await fetch(`/api/lessonAll?page=${page}&limit=${limit}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -122,9 +122,9 @@
         }
       });
       const data = await res.json();
-
+      console.log(data)
       // update summary
-      document.getElementById('total').innerText = data.summary.total;
+      document.getElementById('total').innerText = data.summary.total_items;
       document.getElementById('status_open').innerText = data.summary.status_open;
       document.getElementById('status_close').innerText = data.summary.status_close;
 
