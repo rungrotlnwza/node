@@ -93,6 +93,91 @@ router.get('/eol-system/eol-platform', (req, res) => {
         layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
     })
 })
+router.get('/products/product-eol-member-club', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/products/product-eol-member-club.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/products/product-eol-personal', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/products/product-eol-personal.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/products/product-eol-oneyear', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/products/product-eol-oneyear.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/products/product-eol-intelligence', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/products/product-eol-intelligence.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/products/product-eol-corporate', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/products/product-eol-corporate.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/products/how-to-pay', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/products/how-to-pay.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/products/policy-change-product', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/products/policy-change-product.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/products/products', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/products/product-eol-oneyear.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-columns/one-day-one-sentence', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/one-day-one-sentence.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-columns/english-from-news', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/english-from-news.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-columns/easy-english', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/easy-english.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-columns/comprehensive-listening', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/comprehensive-listening.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-columns/grammar-writing', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/grammar-writing.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-columns/communicative-english', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/communicative-english.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-columns/pronunciation-phonetic', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/pronunciation-phonetic.ejs'), {
+        layout: (path.join(__dirname, '../../views/layouts/default.layout.ejs'))
+    })
+})
+router.get('/eol-columns/song-of-souls', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/song-of-souls.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-columns/movie-world', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-columns/movie-world.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
 // admin
 router.get('/admin/admin', (req, res) => [
     res.render(path.join(__dirname, '../../views/page/admin/admin.ejs'), {
