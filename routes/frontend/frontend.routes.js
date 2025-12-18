@@ -33,6 +33,36 @@ router.get('/news/20th-anniversary', (req, res) => {
         layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
     })
 })
+router.get('/about/about', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/about/about.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/about/whatiseol', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/about/whatiseol.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/about/eol-history', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/about/eol-history.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/about/security', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/about/security.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/about/privacy', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/about/privacy.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/about/complaint', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/about/complaint.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
 // admin
 router.get('/admin/admin', (req, res) => [
     res.render(path.join(__dirname, '../../views/page/admin/admin.ejs'), {
