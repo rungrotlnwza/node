@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="container-fluid mb-5 mt-5">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-12 col-md-6 d-none d-md-block">
+      <img src="/assets/img/draw2.webp" class="img-fluid" alt="Sample image">
+    </div>
+    <div class="col-12 col-md-6">
+      <form class="text-start">
+        <h1 class="text-warning text-center">Register</h1>
+
+        <div class="form-outline mb-4">
+          <label class="form-label">Username</label>
+          <input type="email" id="username" class="form-control form-control-lg" placeholder="Enter username" />
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Password</label>
+          <div class="input-group" id="show_hide_password_1">
+            <input class="form-control form-control-lg" type="password" id="password1" placeholder="Enter password">
+            <span class="input-group-text">
+              <a href="" style="color: #333;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Confirm Password</label>
+          <div class="input-group" id="show_hide_password_2">
+            <input class="form-control form-control-lg" type="password" id="password2" placeholder="Confirm password">
+            <span class="input-group-text">
+              <a href="" style="color: #333;"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+            </span>
+          </div>
+        </div>
+
+        <div class="text-center text-lg-start mt-4 pt-2">
+          <button onclick="register()" type="button" class="btn btn-primary btn-lg">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // ใช้ Selector สำหรับทั้งสองช่อง (id ลงท้ายด้วย _1 และ _2)
+    $("[id^='show_hide_password'] a").on('click', function(event) {
+      event.preventDefault();
+      // หา input ที่อยู่ในกลุ่มเดียวกัน
+      const input = $(this).closest('.input-group').find('input');
+      const icon = $(this).find('i');
+
+      if (input.attr("type") == "text") {
+        input.attr('type', 'password');
+        icon.addClass("fa-eye-slash");
+        icon.removeClass("fa-eye");
+      } else {
+        input.attr('type', 'text');
+        icon.removeClass("fa-eye-slash");
+        icon.addClass("fa-eye");
+      }
+    });
+  });
+
+  async function register() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password1').value;
+    const confirm = document.getElementById('password2').value;
+
+    if (password !== confirm) {
+      alert("รหัสผ่านไม่ตรงกันครับ");
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          confirm
+        })
+      });
+
+      if (res.ok) {
+        alert('Register successful');
+        window.location.href = '/auth/login.html';
+      } else {
+        const err = await res.json();
+        alert('Register failed: ' + err.message);
+      }
+    } catch (err) {
+      alert('Error connecting to server');
+    }
+  }
+</script>
+
+<style>
+  /* ตกแต่งปุ่มตาเล็กน้อย */
+  .input-group-text {
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  .input-group-text a {
+    text-decoration: none;
+  }
+</style>

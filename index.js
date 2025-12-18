@@ -1,26 +1,28 @@
+// libarry ต่าง ๆ
 require('dotenv').config({ quiet: true });
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 const PORT = process.env.PORT;
 
 // view engine
-app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.disable('view cache');
+app.use(expressLayouts);
+app.set('layout', false);
 
-// livereload MUST be before routes
+// middlewares
 require('./lib/middleware/livereload')(app);
-
-// global middlewares
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-// routes (last)
+
+// routes
 app.use(require('./routes/routes'));
 
 app.listen(PORT, () => {

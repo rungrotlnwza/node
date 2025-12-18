@@ -42,17 +42,21 @@ document.addEventListener('click', (e) => {
     if (dismiss) return closeSidebar();
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const btnClose = document.getElementById('btn-close-sidebar');
 
-const toggleBtn = document.getElementById('menu-toggle');
-if (toggleBtn) {
-    const newToggle = toggleBtn.cloneNode(true);
-    toggleBtn.parentNode.replaceChild(newToggle, toggleBtn);
+    function toggleSidebar() {
+        sidebar.classList.toggle('show');
+        overlay.classList.toggle('show');
+    }
 
-    newToggle.addEventListener('click', () => {
-        if (sidebar) sidebar.classList.toggle('show');
-        if (overlay) overlay.classList.toggle('show');
-    });
-}
+    if (menuToggle) menuToggle.addEventListener('click', toggleSidebar);
+    if (overlay) overlay.addEventListener('click', toggleSidebar);
+    if (btnClose) btnClose.addEventListener('click', toggleSidebar);
+});
 async function updateCookieUser() {
     if (getCookie('token')) {
         if (!getCookie('user')) {
