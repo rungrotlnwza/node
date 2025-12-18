@@ -1,52 +1,171 @@
-  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Navbar</a>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+  <div class="container-fluid">
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand text-dark" href="/">
+      <img src="../favicon.ico" alt="">
+    </a>
+    <div class="d-flex align-items-center">
+      <a href="" class="btn btn-primary d-lg-none me-2">login</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul>
-
-        <ul class="navbar-nav ms-auto">
-          <div id="dropdown" class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle"></i>
-            </button>
-
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li id="admin"><a class="dropdown-item" href="/admin/admin">admin</a></li>
-              <li><a class="dropdown-item" href="/eol">EOL</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li id="profile"><a class="dropdown-item" href="/user/me">Profile</a></li>
-            </ul>
-          </div>
-          <li id="logout" class="nav-item">
-            <button onclick="logout()" class="nav-link">Logout</button>
-          </li>
-
-          <li id="login" class="nav-item">
-            <a class="nav-link" href="/auth/login">Login</a>
-          </li>
-
-          <li id="register" class="nav-item">
-            <a class="nav-link" href="/auth/register">Register</a>
-          </li>
-        </ul>
-      </div>
     </div>
-  </nav>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- SEO Pages - Left Side -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/">HOME</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            EOL CONTEST
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/news/eol-contest.html">EOL Contest</a></li>
+            <li><a class="dropdown-item" href="/news/teoc11-timeline.html">TEOC11 Timeline</a></li>
+            <li><a class="dropdown-item" href="/news/20th-anniversary.html">20th Anniversary</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ABOUT
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/about/about.html">เกี่ยวกับ EOL</a></li>
+            <li><a class="dropdown-item" href="/about/whatiseol.html">What is EOL</a></li>
+            <li><a class="dropdown-item" href="/about/eol-history.html">กว่าจะเป็น EOL</a></li>
+            <li><a class="dropdown-item" href="/about/security.html">ความปลอดภัยของเว็บไซต์</a></li>
+            <li><a class="dropdown-item" href="/about/privacy.html">นโยบายความเป็นส่วนตัว</a></li>
+            <li><a class="dropdown-item" href="/about/complaint.html">ข้อร้องเรียนและการระงับข้อพิพาท</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            EOL SYSTEM
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/eol-system/eol-member-club.html">EOL Member Club</a></li>
+            <li><a class="dropdown-item" href="/eol-system/eol-personal.html">EOL Personal</a></li>
+            <li><a class="dropdown-item" href="/eol-system/eol-oneyear.html">1 Year Course</a></li>
+            <li><a class="dropdown-item" href="/eol-system/eol-intelligence.html">EOL Intelligence</a></li>
+            <li><a class="dropdown-item" href="/eol-system/eol-corporate.html">EOL Corporate</a></li>
+            <li><a class="dropdown-item" href="/eol-system/eol-platform.html">EOL Corporate Platform</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            PRODUCT
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/products/product-eol-member-club.html">EOL Member Club</a></li>
+            <li><a class="dropdown-item" href="/products/product-eol-personal.html">EOL Personal</a></li>
+            <li><a class="dropdown-item" href="/products/product-eol-oneyear.html">1 Year Course</a></li>
+            <li><a class="dropdown-item" href="/products/product-eol-intelligence.html">EOL Intelligence</a></li>
+            <li><a class="dropdown-item" href="/products/product-eol-corporate.html">EOL Corporate</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/products/how-to-pay.html">วิธีการสั่งซื้อ</a></li>
+            <li><a class="dropdown-item" href="/products/policy-change-product.html">นโยบายการเปลี่ยนสินค้า</a></li>
+            <li><a class="dropdown-item" href="/products/products.html">การรับประกันสินค้า</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            EOL COLUMN
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/eol-columns/one-day-one-sentence.html">One day One sentence</a></li>
+            <li><a class="dropdown-item" href="/eol-columns/english-from-news.html">English from News</a></li>
+            <li><a class="dropdown-item" href="/eol-columns/easy-english.html">Easy English</a></li>
+            <li><a class="dropdown-item" href="/eol-columns/comprehensive-listening.html">Comprehensive Listening</a></li>
+            <li><a class="dropdown-item" href="/eol-columns/grammar-writing.html">Grammar & Writing</a></li>
+            <li><a class="dropdown-item" href="/eol-columns/communicative-english.html">Communicative English</a></li>
+            <li><a class="dropdown-item" href="/eol-columns/pronunciation-phonetic.html">Pronunciation & Phonetic</a></li>
+            <li><a class="dropdown-item" href="/eol-columns/song-of-souls.html">Song of Souls</a></li>
+            <li><a class="dropdown-item" href="/eol-columns/movie-world.html">Movie World</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            STANDARD TEST
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/standard-test/gepot.html">GEPOT Testing</a></li>
+            <li><a class="dropdown-item" href="/standard-test/admission.html">Admission</a></li>
+            <li><a class="dropdown-item" href="/standard-test/cu-tep.html">CU-TEP</a></li>
+            <li><a class="dropdown-item" href="/standard-test/cefr.html">CEFR</a></li>
+            <li><a class="dropdown-item" href="/standard-test/toefl.html">TOEFL</a></li>
+            <li><a class="dropdown-item" href="/standard-test/toeic.html">TOEIC</a></li>
+            <li><a class="dropdown-item" href="/standard-test/ielts.html">IELTS</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            CONTACT
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/contact/contact.html">ติดต่อเรา</a></li>
+            <li><a class="dropdown-item" href="/contact/work.html">ร่วมงานกับเรา</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Login/Register - Right Side -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user me-1"></i>PROFILE
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/private/user/profile.html">
+                <i class="fa fa-user-circle me-2"></i>ข้อมูลส่วนตัว
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="/private/user/edit-profile.html">
+                <i class="fa fa-edit me-2"></i>แก้ไขข้อมูล
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="/private/user/change-password.html">
+                <i class="fa fa-key me-2"></i>เปลี่ยนรหัสผ่าน
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="/private/user/privacy-settings.html">
+                <i class="fa fa-shield-alt me-2"></i>ความเป็นส่วนตัว
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="/private/user/notification-settings.html">
+                <i class="fa fa-bell me-2"></i>การแจ้งเตือน
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/private/admin/index.html">
+                <i class="fa fa-shield-alt me-2"></i>ระบบผู้ดูแลระบบ
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/auth/login.html">
+                <i class="fa fa-sign-out me-2"></i>ออกจากระบบ
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/auth/login.html">
+            <i class="fa fa-sign-in me-1"></i>LOGIN
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/auth/register.html">
+            <i class="fa fa-user-plus me-1"></i>REGISTER
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
