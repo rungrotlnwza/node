@@ -63,6 +63,36 @@ router.get('/about/complaint', (req, res) => {
         layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
     })
 })
+router.get('/eol-system/eol-member-club', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-system/eol-member-club.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-system/eol-personal', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-system/eol-personal.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-system/eol-oneyear', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-system/eol-oneyear.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-system/eol-intelligence', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-system/eol-intelligence.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-system/eol-corporate', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-system/eol-corporate.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/eol-system/eol-platform', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/eol-system/eol-platform.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
 // admin
 router.get('/admin/admin', (req, res) => [
     res.render(path.join(__dirname, '../../views/page/admin/admin.ejs'), {
