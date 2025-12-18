@@ -1,442 +1,418 @@
-<!DOCTYPE html>
-<html lang="th">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EOL English Rooms - English Online Learning</title>
-    <meta name="description" content="EOL English Rooms - ห้องเรียนภาษาอังกฤษออนไลน์">
-    <!-- CDN resources will be loaded dynamically -->
-</head>
-
-<body class="bg-dark text-light min-vh-100">
-    <!-- Navigation will be loaded here -->
-    <div id="navbar"></div>
-
-    <!-- Main Content -->
-    <div class="container-fluid bg-dark mt-5">
-        <div class="container py-5">
-            <!-- Header -->
-            <div class="row mb-5">
-                <div class="col-12 text-center">
-                    <h1 class="display-4 fw-bold text-warning mb-3">
-                        <i class="fa fa-door-open me-3"></i>
-                        EOL English Rooms
-                    </h1>
-                    <p class="lead text-light">
-                        ห้องเรียนภาษาอังกฤษออนไลน์ที่หลากหลายและน่าสนใจ
-                    </p>
-                    <hr class="w-25 mx-auto border-warning border-2">
-                </div>
-            </div>
-
-            <!-- English Rooms Cards -->
-            <div class="row mb-5">
-                <!-- Room 1: Grammar Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-book me-2"></i>
-                                Grammar Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-spell-check fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียนไวยากรณ์</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                เรียนรู้ไวยากรณ์ภาษาอังกฤษตั้งแต่พื้นฐานจนถึงระดับสูง พร้อมแบบฝึกหัดและตัวอย่างที่เข้าใจง่าย
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">Basic</span>
-                                <span class="badge bg-success">Intermediate</span>
-                                <span class="badge bg-info">Advanced</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/grammar-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Room 2: Vocabulary Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-language me-2"></i>
-                                Vocabulary Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-font fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียนคำศัพท์</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                เพิ่มพูนคำศัพท์ภาษาอังกฤษด้วยวิธีการจำที่สนุกสนาน และการใช้งานในบริบทที่หลากหลาย
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">Daily</span>
-                                <span class="badge bg-success">Business</span>
-                                <span class="badge bg-info">Academic</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/vocabulary-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Room 3: Speaking Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-microphone me-2"></i>
-                                Speaking Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-comments fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียนการพูด</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                ฝึกทักษะการพูดภาษาอังกฤษด้วยการสนทนาในสถานการณ์ต่างๆ และการออกเสียงที่ถูกต้อง
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">Conversation</span>
-                                <span class="badge bg-success">Pronunciation</span>
-                                <span class="badge bg-info">Fluency</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/speaking-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Room 4: Listening Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-headphones me-2"></i>
-                                Listening Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-volume-up fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียนการฟัง</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                พัฒนาทักษะการฟังภาษาอังกฤษด้วยเสียงคุณภาพสูงและเนื้อหาที่หลากหลาย
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">News</span>
-                                <span class="badge bg-success">Music</span>
-                                <span class="badge bg-info">Movies</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/listening-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Room 5: Reading Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-book-open me-2"></i>
-                                Reading Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-eye fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียนการอ่าน</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                ฝึกทักษะการอ่านภาษาอังกฤษด้วยบทความที่น่าสนใจและหลากหลายระดับ
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">Articles</span>
-                                <span class="badge bg-success">Stories</span>
-                                <span class="badge bg-info">Comprehension</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/reading-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Room 6: Writing Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-pen-fancy me-2"></i>
-                                Writing Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-edit fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียนการเขียน</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                เรียนรู้การเขียนภาษาอังกฤษในรูปแบบต่างๆ พร้อมเทคนิคและโครงสร้างที่ถูกต้อง
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">Essays</span>
-                                <span class="badge bg-success">Letters</span>
-                                <span class="badge bg-info">Reports</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/writing-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Room 7: Business English Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-briefcase me-2"></i>
-                                Business English Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-chart-line fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียนภาษาอังกฤษธุรกิจ</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                เรียนรู้ภาษาอังกฤษสำหรับการทำงาน การประชุม และการสื่อสารทางธุรกิจ
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">Meetings</span>
-                                <span class="badge bg-success">Presentations</span>
-                                <span class="badge bg-info">Negotiations</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/business-english-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Room 8: TOEIC Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-certificate me-2"></i>
-                                TOEIC Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-trophy fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียน TOEIC</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                เตรียมสอบ TOEIC ด้วยแบบทดสอบและเทคนิคการทำข้อสอบที่ได้ผล
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">Listening</span>
-                                <span class="badge bg-success">Reading</span>
-                                <span class="badge bg-info">Practice</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/toeic-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Room 9: IELTS Room -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="row bg-dark border border-warning rounded h-100 shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h5 class="mb-0">
-                                <i class="fa fa-globe me-2"></i>
-                                IELTS Room
-                            </h5>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="text-center mb-3">
-                                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
-                                    <i class="fa fa-graduation-cap fa-3x text-dark"></i>
-                                </div>
-                            </div>
-                            <h6 class="text-warning mb-3">
-                                <strong>ห้องเรียน IELTS</strong>
-                            </h6>
-                            <p class="text-light mb-3 small">
-                                เตรียมสอบ IELTS ครบทั้ง 4 ทักษะ พร้อมเทคนิคและกลยุทธ์การทำข้อสอบ
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mb-3">
-                                <span class="badge bg-primary">Academic</span>
-                                <span class="badge bg-success">General</span>
-                                <span class="badge bg-info">Band 7+</span>
-                            </div>
-                            <div class="text-center">
-                                <a href="/eol-system/english-rooms/ielts-room.html" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-play me-1"></i>
-                                    เข้าเรียน
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Statistics -->
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="row bg-dark border border-warning rounded shadow">
-                        <div class="col-12 bg-warning text-dark p-3">
-                            <h4 class="mb-0">
-                                <i class="fa fa-chart-bar me-2"></i>
-                                สถิติการใช้งาน
-                            </h4>
-                        </div>
-                        <div class="col-12 p-4">
-                            <div class="row text-center">
-                                <div class="col-lg-3 col-md-6 mb-3">
-                                    <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-3" >
-                                        <i class="fa fa-door-open fa-2x text-dark"></i>
-                                    </div>
-                                    <h4 class="text-warning">9</h4>
-                                    <p class="text-light">ห้องเรียนทั้งหมด</p>
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-3">
-                                    <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-3" >
-                                        <i class="fa fa-users fa-2x text-dark"></i>
-                                    </div>
-                                    <h4 class="text-warning">15,000+</h4>
-                                    <p class="text-light">ผู้เรียนที่ใช้งาน</p>
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-3">
-                                    <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-3" >
-                                        <i class="fa fa-play-circle fa-2x text-dark"></i>
-                                    </div>
-                                    <h4 class="text-warning">500+</h4>
-                                    <p class="text-light">บทเรียนทั้งหมด</p>
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-3">
-                                    <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-3" >
-                                        <i class="fa fa-star fa-2x text-dark"></i>
-                                    </div>
-                                    <h4 class="text-warning">4.9</h4>
-                                    <p class="text-light">คะแนนความพึงพอใจ</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="row bg-primary border border-warning rounded shadow">
-                        <div class="col-12 text-center py-5">
-                            <h3 class="text-white mb-3">
-                                <i class="fa fa-rocket me-2"></i>
-                                พร้อมเริ่มเรียนแล้วหรือยัง?
-                            </h3>
-                            <p class="text-light mb-4">
-                                เข้าร่วม EOL English Rooms และพัฒนาทักษะภาษาอังกฤษของคุณในทุกด้าน
-                            </p>
-                            <div class="d-flex gap-3 justify-content-center">
-                                <a href="/auth/register.html" class="btn btn-warning btn-lg shadow">
-                                    <i class="fa fa-user-plus me-2"></i>
-                                    สมัครสมาชิก
-                                </a>
-                                <a href="/eol-system/" class="btn btn-outline-light btn-lg">
-                                    <i class="fa fa-graduation-cap me-2"></i>
-                                    ดูระบบทั้งหมด
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- Main Content -->
+<div class="container-fluid bg-dark mt-5">
+  <div class="container py-5">
+    <!-- Header -->
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h1 class="display-4 fw-bold text-warning mb-3">
+          <i class="fa fa-door-open me-3"></i>
+          EOL English Rooms
+        </h1>
+        <p class="lead text-light">
+          ห้องเรียนภาษาอังกฤษออนไลน์ที่หลากหลายและน่าสนใจ
+        </p>
+        <hr class="w-25 mx-auto border-warning border-2">
+      </div>
     </div>
 
-    <!-- Footer will be loaded here -->
-    <div id="footer"></div>
+    <!-- English Rooms Cards -->
+    <div class="row mb-5">
+      <!-- Room 1: Grammar Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-book me-2"></i>
+              Grammar Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-spell-check fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียนไวยากรณ์</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              เรียนรู้ไวยากรณ์ภาษาอังกฤษตั้งแต่พื้นฐานจนถึงระดับสูง พร้อมแบบฝึกหัดและตัวอย่างที่เข้าใจง่าย
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">Basic</span>
+              <span class="badge bg-success">Intermediate</span>
+              <span class="badge bg-info">Advanced</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/grammar-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <!-- Load CDN and components -->
-    <script type="module" src="/js/script.js"></script>
-</body>
+      <!-- Room 2: Vocabulary Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-language me-2"></i>
+              Vocabulary Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-font fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียนคำศัพท์</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              เพิ่มพูนคำศัพท์ภาษาอังกฤษด้วยวิธีการจำที่สนุกสนาน และการใช้งานในบริบทที่หลากหลาย
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">Daily</span>
+              <span class="badge bg-success">Business</span>
+              <span class="badge bg-info">Academic</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/vocabulary-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-</html>
+      <!-- Room 3: Speaking Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-microphone me-2"></i>
+              Speaking Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-comments fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียนการพูด</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              ฝึกทักษะการพูดภาษาอังกฤษด้วยการสนทนาในสถานการณ์ต่างๆ และการออกเสียงที่ถูกต้อง
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">Conversation</span>
+              <span class="badge bg-success">Pronunciation</span>
+              <span class="badge bg-info">Fluency</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/speaking-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 4: Listening Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-headphones me-2"></i>
+              Listening Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-volume-up fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียนการฟัง</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              พัฒนาทักษะการฟังภาษาอังกฤษด้วยเสียงคุณภาพสูงและเนื้อหาที่หลากหลาย
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">News</span>
+              <span class="badge bg-success">Music</span>
+              <span class="badge bg-info">Movies</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/listening-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 5: Reading Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-book-open me-2"></i>
+              Reading Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-eye fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียนการอ่าน</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              ฝึกทักษะการอ่านภาษาอังกฤษด้วยบทความที่น่าสนใจและหลากหลายระดับ
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">Articles</span>
+              <span class="badge bg-success">Stories</span>
+              <span class="badge bg-info">Comprehension</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/reading-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 6: Writing Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-pen-fancy me-2"></i>
+              Writing Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-edit fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียนการเขียน</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              เรียนรู้การเขียนภาษาอังกฤษในรูปแบบต่างๆ พร้อมเทคนิคและโครงสร้างที่ถูกต้อง
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">Essays</span>
+              <span class="badge bg-success">Letters</span>
+              <span class="badge bg-info">Reports</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/writing-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 7: Business English Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-briefcase me-2"></i>
+              Business English Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-chart-line fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียนภาษาอังกฤษธุรกิจ</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              เรียนรู้ภาษาอังกฤษสำหรับการทำงาน การประชุม และการสื่อสารทางธุรกิจ
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">Meetings</span>
+              <span class="badge bg-success">Presentations</span>
+              <span class="badge bg-info">Negotiations</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/business-english-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 8: TOEIC Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-certificate me-2"></i>
+              TOEIC Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-trophy fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียน TOEIC</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              เตรียมสอบ TOEIC ด้วยแบบทดสอบและเทคนิคการทำข้อสอบที่ได้ผล
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">Listening</span>
+              <span class="badge bg-success">Reading</span>
+              <span class="badge bg-info">Practice</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/toeic-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room 9: IELTS Room -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="row bg-dark border border-warning rounded h-100 shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h5 class="mb-0">
+              <i class="fa fa-globe me-2"></i>
+              IELTS Room
+            </h5>
+          </div>
+          <div class="col-12 p-4">
+            <div class="text-center mb-3">
+              <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow">
+                <i class="fa fa-graduation-cap fa-3x text-dark"></i>
+              </div>
+            </div>
+            <h6 class="text-warning mb-3">
+              <strong>ห้องเรียน IELTS</strong>
+            </h6>
+            <p class="text-light mb-3 small">
+              เตรียมสอบ IELTS ครบทั้ง 4 ทักษะ พร้อมเทคนิคและกลยุทธ์การทำข้อสอบ
+            </p>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-primary">Academic</span>
+              <span class="badge bg-success">General</span>
+              <span class="badge bg-info">Band 7+</span>
+            </div>
+            <div class="text-center">
+              <a href="/eol-system/english-rooms/ielts-room.html" class="btn btn-warning btn-sm">
+                <i class="fa fa-play me-1"></i>
+                เข้าเรียน
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="row bg-dark border border-warning rounded shadow">
+          <div class="col-12 bg-warning text-dark p-3">
+            <h4 class="mb-0">
+              <i class="fa fa-chart-bar me-2"></i>
+              สถิติการใช้งาน
+            </h4>
+          </div>
+          <div class="col-12 p-4">
+            <div class="row text-center">
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-3">
+                  <i class="fa fa-door-open fa-2x text-dark"></i>
+                </div>
+                <h4 class="text-warning">9</h4>
+                <p class="text-light">ห้องเรียนทั้งหมด</p>
+              </div>
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-3">
+                  <i class="fa fa-users fa-2x text-dark"></i>
+                </div>
+                <h4 class="text-warning">15,000+</h4>
+                <p class="text-light">ผู้เรียนที่ใช้งาน</p>
+              </div>
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-3">
+                  <i class="fa fa-play-circle fa-2x text-dark"></i>
+                </div>
+                <h4 class="text-warning">500+</h4>
+                <p class="text-light">บทเรียนทั้งหมด</p>
+              </div>
+              <div class="col-lg-3 col-md-6 mb-3">
+                <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-3">
+                  <i class="fa fa-star fa-2x text-dark"></i>
+                </div>
+                <h4 class="text-warning">4.9</h4>
+                <p class="text-light">คะแนนความพึงพอใจ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="row">
+      <div class="col-12">
+        <div class="row bg-primary border border-warning rounded shadow">
+          <div class="col-12 text-center py-5">
+            <h3 class="text-white mb-3">
+              <i class="fa fa-rocket me-2"></i>
+              พร้อมเริ่มเรียนแล้วหรือยัง?
+            </h3>
+            <p class="text-light mb-4">
+              เข้าร่วม EOL English Rooms และพัฒนาทักษะภาษาอังกฤษของคุณในทุกด้าน
+            </p>
+            <div class="d-flex gap-3 justify-content-center">
+              <a href="/auth/register.html" class="btn btn-warning btn-lg shadow">
+                <i class="fa fa-user-plus me-2"></i>
+                สมัครสมาชิก
+              </a>
+              <a href="/eol-system/" class="btn btn-outline-light btn-lg">
+                <i class="fa fa-graduation-cap me-2"></i>
+                ดูระบบทั้งหมด
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
