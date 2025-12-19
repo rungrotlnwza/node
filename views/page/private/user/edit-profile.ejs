@@ -77,7 +77,7 @@
                     <div class="row g-2">
                       <!-- จังหวัด -->
                       <div class="col-12 col-md-4">
-                        <select class="form-select bg-dark text-light border-warning" id="province" name="province_id" required>
+                        <select id="province_name" class="form-select bg-dark text-light border-warning" name="province_id" required>
                           <option value="">จังหวัด</option>
                         </select>
                       </div>
@@ -115,132 +115,164 @@
       </div>
     </div>
   </div>
-  <script>
-    if (getCookie('user')) {
-      const data = JSON.parse(getCookie('user'));
-      document.getElementById("firstName").value = data.first_name || '-';
-      document.getElementById("lastName").value = data.last_name || '-';
-      document.getElementById("phone").value = data.phone || '-';
-      document.getElementById("email").value = data.email || '-';
-      document.getElementById("birthday").value = data.birth_date || '-';
-      document.getElementById("education_level").value = data.education_level || '-';
-      document.getElementById("education_status").value = data.education_status || '-';
-    }
-    let rawData = []; // เก็บ data ทั้งก้อน
+</div>
+<script>
+  let rawData = []; // เก็บข้อมูลที่อยู่จาก GitHub
 
-    // โหลดข้อมูล
-    fetch('https://raw.githubusercontent.com/kongvut/thai-province-data/refs/heads/master/api/latest/province_with_district_and_sub_district.json')
-      .then(res => res.json())
-      .then(data => {
-        rawData = data;
-        renderProvinces(data);
+  // --- 1. ฟังก์ชันหลักสำหรับเริ่มต้นระบบ ---
+  async function initProfilePage() {
+    try {
+      // ขั้นตอนที่ 1: บอกให้ JavaScript "หยุดรอ" จนกว่าจะโหลดข้อมูลจังหวัดจาก GitHub เสร็จ
+      const resGithub = await fetch('https://raw.githubusercontent.com/kongvut/thai-province-data/refs/heads/master/api/latest/province_with_district_and_sub_district.json');
+      rawData = await resGithub.json();
+
+      // วาดรายการจังหวัดลงใน Select รอไว้ก่อน
+      renderProvinces(rawData);
+
+      // ขั้นตอนที่ 2: บอกให้ "หยุดรอ" อีกครั้งเพื่อดึงข้อมูล User จาก API
+      const resMe = await fetch('/api/me', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${getCookie('token')}`
+        }
       });
+      const userData = await resMe.json();
 
-    function renderProvinces(data) {
-      const provinceSelect = document.getElementById('province');
-      provinceSelect.innerHTML = '<option value="">-- เลือกจังหวัด --</option>';
+      // ขั้นตอนที่ 3: เมื่อข้อมูลทั้งสองอย่างพร้อมแล้ว ค่อยเริ่มฉีดข้อมูลลงในฟอร์ม
+      fillUserData(userData);
 
-      data.forEach(p => {
-        const opt = document.createElement('option');
-        opt.value = p.name_th; // ✅ ส่งชื่อ
-        opt.textContent = p.name_th;
-        provinceSelect.appendChild(opt);
-      });
+    } catch (error) {
+      console.error("Initialization failed:", error);
+      // alert("ไม่สามารถโหลดข้อมูลได้ในขณะนี้ครับ");
+    }
+  }
+
+  // --- 2. ฟังก์ชันฉีดข้อมูล User ลงในฟอร์ม ---
+  function fillUserData(data) {
+    // ข้อมูลทั่วไป
+    document.getElementById("firstName").value = data.first_name || '';
+    document.getElementById("lastName").value = data.last_name || '';
+    document.getElementById("phone").value = data.phone || '';
+    document.getElementById("email").value = data.email || '';
+    document.getElementById("birthday").value = data.birth_date ? data.birth_date.split('T')[0] : '';
+    document.getElementById("education_level").value = data.education_level || '';
+    document.getElementById("education_status").value = data.education_status || '';
+
+    // ข้อมูลที่อยู่ (จังหวัด -> อำเภอ -> ตำบล)
+    if (data.province_name) {
+      // เลือกจังหวัด
+      const provinceSelect = document.getElementById('province_name');
+      provinceSelect.value = data.province_name;
+
+      // โหลดและเลือกอำเภอ
+      renderDistricts(data.province_name, data.district_name);
+
+      // โหลดและเลือกตำบล
+      renderSubDistricts(data.province_name, data.district_name, data.sub_district_name);
+    }
+  }
+
+  // --- 3. ฟังก์ชัน Render ต่างๆ ---
+
+  function renderProvinces(data) {
+    const provinceSelect = document.getElementById('province_name');
+    provinceSelect.innerHTML = '<option value="">-- เลือกจังหวัด --</option>';
+    data.forEach(p => {
+      const opt = new Option(p.name_th, p.name_th);
+      provinceSelect.add(opt);
+    });
+  }
+
+  function renderDistricts(provinceName, selectedDistrictName = null) {
+    const districtSelect = document.getElementById('district');
+    const subDistrictSelect = document.getElementById('subDistrict');
+
+    districtSelect.innerHTML = '<option value="">-- เลือกอำเภอ/เขต --</option>';
+    subDistrictSelect.innerHTML = '<option value="">-- เลือกตำบล/แขวง --</option>';
+    subDistrictSelect.disabled = true;
+
+    if (!provinceName) {
+      districtSelect.disabled = true;
+      return;
     }
 
-    // เลือกจังหวัด
-    document.getElementById('province').addEventListener('change', function() {
-      const provinceName = this.value;
-      const districtSelect = document.getElementById('district');
-      const subDistrictSelect = document.getElementById('subDistrict');
-
-      districtSelect.innerHTML = '<option value="">-- เลือกอำเภอ/เขต --</option>';
-      subDistrictSelect.innerHTML = '<option value="">-- เลือกตำบล/แขวง --</option>';
-      subDistrictSelect.disabled = true;
-
-      if (!provinceName) {
-        districtSelect.disabled = true;
-        return;
-      }
-
-      // ✅ หา province ด้วย name_th
-      const province = rawData.find(p => p.name_th === provinceName);
-      if (!province) return;
-
+    const province = rawData.find(p => p.name_th === provinceName);
+    if (province) {
       province.districts.forEach(d => {
-        const opt = document.createElement('option');
-        opt.value = d.name_th; // ✅ ส่งชื่อ
-        opt.textContent = d.name_th;
-        districtSelect.appendChild(opt);
+        const opt = new Option(d.name_th, d.name_th);
+        if (d.name_th === selectedDistrictName) opt.selected = true;
+        districtSelect.add(opt);
       });
-
       districtSelect.disabled = false;
-    });
-
-    // เลือกอำเภอ/เขต
-    document.getElementById('district').addEventListener('change', function() {
-      const districtName = this.value;
-      const subDistrictSelect = document.getElementById('subDistrict');
-
-      subDistrictSelect.innerHTML = '<option value="">-- เลือกตำบล/แขวง --</option>';
-
-      if (!districtName) {
-        subDistrictSelect.disabled = true;
-        return;
-      }
-
-      const provinceName = document.getElementById('province').value;
-
-      // ✅ หา province ด้วย name_th
-      const province = rawData.find(p => p.name_th === provinceName);
-      if (!province) return;
-
-      // ✅ หา district ด้วย name_th
-      const district = province.districts.find(d => d.name_th === districtName);
-      if (!district) return;
-
-      district.sub_districts.forEach(sd => {
-        const opt = document.createElement('option');
-        opt.value = sd.name_th; // ✅ ส่งชื่อ
-        opt.textContent = sd.name_th;
-        subDistrictSelect.appendChild(opt);
-      });
-
-      subDistrictSelect.disabled = false;
-    });
-
-    function update() {
-      fetch('/api/update', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getCookie('token')}`
-          },
-          body: JSON.stringify({
-            first_name: firstName.value,
-            last_name: lastName.value,
-            phone: phone.value,
-            email: email.value,
-            birth_date: birthday.value,
-            education_level: education_level.value,
-            education_status: education_status.value,
-            province_name: province.value,
-            district_name: district.value,
-            sub_district_name: subDistrict.value
-          })
-        })
-        .then(res => {
-          if (!res.ok) throw new Error('update failed');
-          return res.json();
-        })
-        .then(data => {
-          deleteCookie('user');
-          // setCookie('user', JSON.stringify(data), 1);
-          updateCookieUser();
-
-          // 🔥 reload หลัง set เสร็จ
-          location.reload();
-        })
-        .catch(console.error);
     }
-  </script>
+  }
+
+  function renderSubDistricts(provinceName, districtName, selectedSubName = null) {
+    const subDistrictSelect = document.getElementById('subDistrict');
+    subDistrictSelect.innerHTML = '<option value="">-- เลือกตำบล/แขวง --</option>';
+
+    const province = rawData.find(p => p.name_th === provinceName);
+    const district = province?.districts.find(d => d.name_th === districtName);
+
+    if (district) {
+      district.sub_districts.forEach(sd => {
+        const opt = new Option(sd.name_th, sd.name_th);
+        if (sd.name_th === selectedSubName) opt.selected = true;
+        subDistrictSelect.add(opt);
+      });
+      subDistrictSelect.disabled = false;
+    }
+  }
+
+  // --- 4. Event Listeners สำหรับการเปลี่ยนค่าหน้าจอ ---
+
+  document.getElementById('province_name').addEventListener('change', function() {
+    renderDistricts(this.value);
+  });
+
+  document.getElementById('district').addEventListener('change', function() {
+    const pName = document.getElementById('province_name').value;
+    renderSubDistricts(pName, this.value);
+  });
+
+  // --- 5. ฟังก์ชันส่งข้อมูลแก้ไข (Update) ---
+  function update() {
+    const bodyData = {
+      first_name: document.getElementById("firstName").value,
+      last_name: document.getElementById("lastName").value,
+      phone: document.getElementById("phone").value,
+      email: document.getElementById("email").value,
+      birth_date: document.getElementById("birthday").value,
+      education_level: document.getElementById("education_level").value,
+      education_status: document.getElementById("education_status").value,
+      province_name: document.getElementById("province_name").value,
+      district_name: document.getElementById("district").value,
+      sub_district_name: document.getElementById("subDistrict").value
+    };
+
+    fetch('/api/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getCookie('token')}`
+        },
+        body: JSON.stringify(bodyData)
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('update failed');
+        return res.json();
+      })
+      .then(data => {
+        deleteCookie('user');
+        if (typeof updateCookieUser === 'function') updateCookieUser();
+        location.reload();
+      })
+      .catch(err => {
+        console.error(err);
+        alert('ไม่สามารถบันทึกข้อมูลได้ครับ');
+      });
+  }
+
+  // สั่งให้ระบบทำงานเมื่อโหลดหน้าเว็บ
+  initProfilePage();
+</script>
