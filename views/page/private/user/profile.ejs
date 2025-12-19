@@ -154,37 +154,42 @@
   if (!getCookie('token')) {
     window.location.href = '/'
   }
-  if (getCookie('user')) {
-    const data = JSON.parse(getCookie('user'));
+  fetch('/api/me', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${getCookie('token')}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
 
-    console.log(data);
+      document.getElementById("cert-fullname").innerText = data.first_name + " " + data.last_name;
 
-    document.getElementById("cert-fullname").innerText = data.first_name + " " + data.last_name;
+      document.getElementById("cert-pass").innerText = data.certpass;
 
-    document.getElementById("cert-pass").innerText = data.certpass;
+      document.getElementById("fullname").innerText = data.first_name + " " + data.last_name;
 
-    document.getElementById("fullname").innerText = data.first_name + " " + data.last_name;
+      document.getElementById("email2").innerText = data.email;
+      document.getElementById("Phone").innerText = data.phone;
+      document.getElementById("address").innerText = data.address;
 
-    document.getElementById("email2").innerText = data.email;
-    document.getElementById("Phone").innerText = data.phone;
-    document.getElementById("address").innerText = data.address;
+      document.getElementById("level-reading").innerText = data.level.reading;
+      document.getElementById("skill-reading").style.width = data.skills.reading + "%";
 
-    document.getElementById("level-reading").innerText = data.level.reading;
-    document.getElementById("skill-reading").style.width = data.skills.reading + "%";
+      document.getElementById("level-listening").innerText = data.level.listening;
+      document.getElementById("skill-listening").style.width = data.skills.listening + "%";
 
-    document.getElementById("level-listening").innerText = data.level.listening;
-    document.getElementById("skill-listening").style.width = data.skills.listening + "%";
+      document.getElementById("level-speaking").innerText = data.level.speaking;
+      document.getElementById("skill-speaking").style.width = data.skills.speaking + "%";
 
-    document.getElementById("level-speaking").innerText = data.level.speaking;
-    document.getElementById("skill-speaking").style.width = data.skills.speaking + "%";
+      document.getElementById("level-writing").innerText = data.level.writing;
+      document.getElementById("skill-writing").style.width = data.skills.writing + "%";
 
-    document.getElementById("level-writing").innerText = data.level.writing;
-    document.getElementById("skill-writing").style.width = data.skills.writing + "%";
+      document.getElementById("level-grammar").innerText = data.level.grammar;
+      document.getElementById("skill-grammar").style.width = data.skills.grammar + "%";
 
-    document.getElementById("level-grammar").innerText = data.level.grammar;
-    document.getElementById("skill-grammar").style.width = data.skills.grammar + "%";
-
-    document.getElementById("level-vocabbulary").innerText = data.level.vocabbulary;
-    document.getElementById("skill-vocabbulary").style.width = data.skills.vocabbulary + "%";
-  }
+      document.getElementById("level-vocabbulary").innerText = data.level.vocabulary;
+      document.getElementById("skill-vocabbulary").style.width = data.skills.vocabulary + "%";
+    })
 </script>
