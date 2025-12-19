@@ -178,6 +178,41 @@ router.get('/eol-columns/movie-world', (req, res) => {
         layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
     })
 })
+router.get('/standard-test/gepot', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/standard-test/gepot.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/standard-test/admission', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/standard-test/admission.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/standard-test/cu-tep', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/standard-test/cu-tep.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/standard-test/cefr', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/standard-test/cefr.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/standard-test/toefl', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/standard-test/toefl.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/standard-test/toeic', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/standard-test/toeic.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
+router.get('/standard-test/ielts', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/standard-test/ielts.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
 // admin
 router.get('/admin/admin', (req, res) => [
     res.render(path.join(__dirname, '../../views/page/admin/admin.ejs'), {
