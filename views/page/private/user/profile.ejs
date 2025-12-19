@@ -1,0 +1,190 @@
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="container my-5">
+        <div class="card border-primary shadow">
+          <div class="card-body text-center p-5" style="background-image: url('/assets/img/cerificate.png'); background-repeat: no-repeat; background-size: cover;">
+            <!-- Title -->
+            <h2 class="fw-bold text-primary mt-5">Certificate of Achievement</h2>
+
+            <p class="mt-3">ใบประกาสนี้ให้แก่</p>
+
+            <!-- Fullname -->
+            <h3 id="cert-fullname" class="fw-bold">-</h3>
+
+            <p class="mt-3">ได้สำเร็จ</p>
+
+            <!-- Course name -->
+            <h4 id="cert-pass" class="fw-semibold">-</h4>
+
+            <!-- Score -->
+            <p class="mt-2">with a score of <strong id="cert-score">-</strong>%</p>
+
+            <!-- Date -->
+            <p class="mt-4">Issued on <span id="cert-date">-</span></p>
+
+            <div class="row mt-5">
+              <div class="col text-start">
+                <p class="mb-1">__________________________</p>
+                <p class="text-muted">Instructor</p>
+              </div>
+              <div class="col text-end">
+                <p class="mb-1">__________________________</p>
+                <p class="text-muted">Director</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p id="fullname" class="text-muted mb-0"></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p id="email2" class="text-muted mb-0">-</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p id="Phone" class="text-muted mb-0">-</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p id="address" class="text-muted mb-0">-</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+
+                <p class="mb-4">
+                  <span class="text-primary font-italic me-1">MySkill</span> Pass
+                </p>
+
+                <!-- Reading -->
+                <p class="mb-1" style="font-size: .77rem;">
+                  Reading <label id="level-reading">-</label>
+                </p>
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" id="skill-reading"></div>
+                </div>
+
+                <!-- Listening -->
+                <p class="mt-4 mb-1" style="font-size: .77rem;">
+                  Listening <label id="level-listening">-</label>
+                </p>
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" id="skill-listening"></div>
+                </div>
+
+                <!-- Speaking -->
+                <p class="mt-4 mb-1" style="font-size: .77rem;">
+                  Semi Speaking <label id="level-speaking">-</label>
+                </p>
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" id="skill-speaking"></div>
+                </div>
+
+                <!-- Writing -->
+                <p class="mt-4 mb-1" style="font-size: .77rem;">
+                  Semi Writing <label id="level-writing">-</label>
+                </p>
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" id="skill-writing"></div>
+                </div>
+
+                <!-- Grammar -->
+                <p class="mt-4 mb-1" style="font-size: .77rem;">
+                  Grammar <label id="level-grammar">-</label>
+                </p>
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" id="skill-grammar"></div>
+                </div>
+
+                <!-- Vocabulary -->
+                <p class="mt-4 mb-1" style="font-size: .77rem;">
+                  Vocabulary <label id="level-vocabbulary">-</label>
+                </p>
+                <div class="progress rounded" style="height: 5px;">
+                  <div class="progress-bar" id="skill-vocabbulary"></div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0">
+              <div class="card-body">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  if (!getCookie('token')) {
+    window.location.href = '/'
+  }
+  if (getCookie('user')) {
+    const data = JSON.parse(getCookie('user'));
+
+    console.log(data);
+
+    document.getElementById("cert-fullname").innerText = data.first_name + " " + data.last_name;
+
+    document.getElementById("cert-pass").innerText = data.certpass;
+
+    document.getElementById("fullname").innerText = data.first_name + " " + data.last_name;
+
+    document.getElementById("email2").innerText = data.email;
+    document.getElementById("Phone").innerText = data.phone;
+    document.getElementById("address").innerText = data.address;
+
+    document.getElementById("level-reading").innerText = data.level.reading;
+    document.getElementById("skill-reading").style.width = data.skills.reading + "%";
+
+    document.getElementById("level-listening").innerText = data.level.listening;
+    document.getElementById("skill-listening").style.width = data.skills.listening + "%";
+
+    document.getElementById("level-speaking").innerText = data.level.speaking;
+    document.getElementById("skill-speaking").style.width = data.skills.speaking + "%";
+
+    document.getElementById("level-writing").innerText = data.level.writing;
+    document.getElementById("skill-writing").style.width = data.skills.writing + "%";
+
+    document.getElementById("level-grammar").innerText = data.level.grammar;
+    document.getElementById("skill-grammar").style.width = data.skills.grammar + "%";
+
+    document.getElementById("level-vocabbulary").innerText = data.level.vocabbulary;
+    document.getElementById("skill-vocabbulary").style.width = data.skills.vocabbulary + "%";
+  }
+</script>

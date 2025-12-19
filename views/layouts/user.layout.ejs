@@ -101,11 +101,11 @@
 
       <b class="mx-3">หลัก</b>
       <nav class="nav flex-column px-3">
-        <a href="/user/me" class="nav-link active"><i class="mx-3 bi bi-house me-2"></i>profile</a>
-        <a href="/user/editme" class="nav-link"><i class="mx-3 bi bi-wallet2 me-2"></i>แก้ไขโปรไฟล์</a>
-        <a href="/history" class="nav-link"><i class="mx-3 bi bi-clock-history me-2"></i> ประวัติเติมเงิน</a>
-        <a href="/package" class="nav-link"><i class="mx-3 bi bi-box-seam me-2"></i> แพ็กเกจ</a>
-        <a href="/referral" class="nav-link"><i class="mx-3 bi bi-person-plus me-2"></i> แนะนำเพื่อน</a>
+        <a href="/private/user/profile" class="nav-link active"><i class="mx-3 bi bi-house me-2"></i>profile</a>
+        <a href="/private/user/edit-profile" class="nav-link"><i class="mx-3 bi bi-wallet2 me-2"></i>แก้ไขโปรไฟล์</a>
+        <a href="/private/history" class="nav-link"><i class="mx-3 bi bi-clock-history me-2"></i> ประวัติเติมเงิน</a>
+        <a href="/private/package" class="nav-link"><i class="mx-3 bi bi-box-seam me-2"></i> แพ็กเกจ</a>
+        <a href="/private/referral" class="nav-link"><i class="mx-3 bi bi-person-plus me-2"></i> แนะนำเพื่อน</a>
       </nav>
 
       <hr class="mx-3">
@@ -143,7 +143,40 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/js/script.js"></script>
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function closeSidebar() {
+      if (sidebar) sidebar.classList.remove('show');
+      if (overlay) overlay.classList.remove('show');
+    }
+  </script>
+  <%- (typeof scripts !== 'undefined') ? scripts : '' %>
+  <script>
+    document.addEventListener('click', (e) => {
+      const dismiss = e.target.closest(
+        '[data-bs-dismiss="offcanvas"],[data-dismiss="offcanvas"],.offcanvas .btn-close'
+      );
+      if (dismiss) return closeSidebar();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      const btnClose = document.getElementById('btn-close-sidebar');
+
+      function toggleSidebar() {
+        sidebar.classList.toggle('show');
+        overlay.classList.toggle('show');
+      }
+
+      if (menuToggle) menuToggle.addEventListener('click', toggleSidebar);
+      if (overlay) overlay.addEventListener('click', toggleSidebar);
+      if (btnClose) btnClose.addEventListener('click', toggleSidebar);
+    });
+  </script>
 </body>
 
 </html>

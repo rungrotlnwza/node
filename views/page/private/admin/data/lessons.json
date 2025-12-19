@@ -1,0 +1,228 @@
+{
+    "lessons": [
+        {
+            "lesson_id": 1,
+            "lesson_name": "Reading",
+            "lesson_title": "การอ่าน",
+            "description": "พัฒนาทักษะการอ่านภาษาอังกฤษ",
+            "icon": "fas fa-book-reader",
+            "color": "primary",
+            "status": "active",
+            "content_file": {
+                "name": "หนังสือแต่งประโยคเล่ม1 4บทแรก.pdf",
+                "size": 1024000,
+                "type": "application/pdf",
+                "lastModified": 1640995200000
+            },
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-15 10:00:00",
+            "subtopics": [
+                {
+                    "subtopic_id": 1,
+                    "subtopic_name": "การอ่านข่าว",
+                    "subtopic_title": "News Reading",
+                    "description": "เรียนรู้การอ่านและเข้าใจข่าวภาษาอังกฤษ",
+                    "icon": "fas fa-newspaper",
+                    "color": "info",
+                    "status": "active",
+                    "created_at": "2024-01-15 10:00:00",
+                    "updated_at": "2024-01-15 10:00:00",
+                    "chapters": [
+                        {
+                            "chapter_id": 1,
+                            "chapter_title": "การอ่านข่าวเบื้องต้น",
+                            "description": "เรียนรู้โครงสร้างข่าวและการอ่านข่าวเบื้องต้น",
+                            "content": "เนื้อหาบทเรียนการอ่านข่าวเบื้องต้น...",
+                            "difficulty": "beginner",
+                            "estimated_time": "30 นาที",
+                            "status": "active",
+                            "created_at": "2024-01-15 10:00:00",
+                            "updated_at": "2024-01-15 10:00:00"
+                        },
+                        {
+                            "chapter_id": 2,
+                            "chapter_title": "การอ่านข่าวระดับกลาง",
+                            "description": "เรียนรู้การอ่านข่าวที่ซับซ้อนขึ้น",
+                            "content": "เนื้อหาบทเรียนการอ่านข่าวระดับกลาง...",
+                            "difficulty": "intermediate",
+                            "estimated_time": "45 นาที",
+                            "status": "active",
+                            "created_at": "2024-01-15 10:00:00",
+                            "updated_at": "2024-01-15 10:00:00"
+                        }
+                    ]
+                },
+                {
+                    "subtopic_id": 2,
+                    "subtopic_name": "การอ่านนวนิยาย",
+                    "subtopic_title": "Novel Reading",
+                    "description": "เรียนรู้การอ่านและเข้าใจนวนิยายภาษาอังกฤษ",
+                    "icon": "fas fa-book",
+                    "color": "success",
+                    "status": "active",
+                    "created_at": "2024-01-15 10:00:00",
+                    "updated_at": "2024-01-15 10:00:00",
+                    "chapters": [
+                        {
+                            "chapter_id": 3,
+                            "chapter_title": "รู้จักนวนิยาย",
+                            "description": "เรียนรู้ประเภทและโครงสร้างนวนิยาย",
+                            "content": "เนื้อหาบทเรียนรู้จักนวนิยาย...",
+                            "difficulty": "beginner",
+                            "estimated_time": "25 นาที",
+                            "status": "active",
+                            "created_at": "2024-01-15 10:00:00",
+                            "updated_at": "2024-01-15 10:00:00"
+                        },
+                        {
+                            "chapter_id": 4,
+                            "chapter_title": "เทคนิคการอ่านนวนิยาย",
+                            "description": "เรียนรู้เทคนิคการอ่านนวนิยายอย่างมีประสิทธิภาพ",
+                            "content": "เนื้อหาบทเรียนเทคนิคการอ่านนวนิยาย...",
+                            "difficulty": "intermediate",
+                            "estimated_time": "40 นาที",
+                            "status": "active",
+                            "created_at": "2024-01-15 10:00:00",
+                            "updated_at": "2024-01-15 10:00:00"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "lesson_id": 2,
+            "lesson_name": "Writing",
+            "lesson_title": "การเขียน",
+            "description": "พัฒนาทักษะการเขียนภาษาอังกฤษ",
+            "icon": "fas fa-pen-fancy",
+            "color": "success",
+            "status": "active",
+            "content_file": {
+                "name": "หนังสือแต่งประโยคเล่ม1 4บทแรก.pdf",
+                "size": 1024000,
+                "type": "application/pdf",
+                "lastModified": 1640995200000
+            },
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-15 10:00:00",
+            "subtopics": [
+                {
+                    "subtopic_id": 3,
+                    "subtopic_name": "การเขียนเรียงความ",
+                    "subtopic_title": "Essay Writing",
+                    "description": "เรียนรู้การเขียนเรียงความภาษาอังกฤษ",
+                    "icon": "fas fa-edit",
+                    "color": "primary",
+                    "status": "active",
+                    "created_at": "2024-01-15 10:00:00",
+                    "updated_at": "2024-01-15 10:00:00",
+                    "chapters": [
+                        {
+                            "chapter_id": 5,
+                            "chapter_title": "โครงสร้างเรียงความ",
+                            "description": "เรียนรู้โครงสร้างเรียงความที่ดี",
+                            "content": "เนื้อหาบทเรียนโครงสร้างเรียงความ...",
+                            "difficulty": "beginner",
+                            "estimated_time": "35 นาที",
+                            "status": "active",
+                            "created_at": "2024-01-15 10:00:00",
+                            "updated_at": "2024-01-15 10:00:00"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "lesson_id": 3,
+            "lesson_name": "Listening",
+            "lesson_title": "การฟัง",
+            "description": "พัฒนาทักษะการฟังภาษาอังกฤษ",
+            "icon": "fas fa-headphones",
+            "color": "info",
+            "status": "inactive",
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-15 10:00:00",
+            "subtopics": []
+        },
+        {
+            "lesson_id": 4,
+            "lesson_name": "Speaking",
+            "lesson_title": "การพูด",
+            "description": "พัฒนาทักษะการพูดภาษาอังกฤษ",
+            "icon": "fas fa-microphone",
+            "color": "warning",
+            "status": "inactive",
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-15 10:00:00",
+            "subtopics": []
+        },
+        {
+            "lesson_id": 5,
+            "lesson_name": "Grammar",
+            "lesson_title": "ไวยากรณ์",
+            "description": "เรียนรู้ไวยากรณ์ภาษาอังกฤษ",
+            "icon": "fas fa-language",
+            "color": "danger",
+            "status": "inactive",
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-15 10:00:00",
+            "subtopics": []
+        },
+        {
+            "lesson_id": 6,
+            "lesson_name": "Vocabulary",
+            "lesson_title": "คำศัพท์",
+            "description": "เรียนรู้คำศัพท์ภาษาอังกฤษ",
+            "icon": "fas fa-spell-check",
+            "color": "secondary",
+            "status": "inactive",
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-15 10:00:00",
+            "subtopics": []
+        },
+        {
+            "lesson_id": 3,
+            "lesson_name": "Grammar",
+            "lesson_title": "ไวยากรณ์",
+            "description": "เรียนรู้ไวยากรณ์ภาษาอังกฤษ",
+            "icon": "fas fa-spell-check",
+            "color": "danger",
+            "status": "active",
+            "content_file": {
+                "name": "หนังสือแต่งประโยคเล่ม1 4บทแรก.pdf",
+                "size": 1024000,
+                "type": "application/pdf",
+                "lastModified": 1640995200000
+            },
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-15 10:00:00",
+            "subtopics": []
+        },
+        {
+            "lesson_id": 4,
+            "lesson_name": "Vocabulary",
+            "lesson_title": "คำศัพท์",
+            "description": "เรียนรู้คำศัพท์ภาษาอังกฤษ",
+            "icon": "fas fa-language",
+            "color": "secondary",
+            "status": "active",
+            "content_file": {
+                "name": "หนังสือแต่งประโยคเล่ม1 4บทแรก.pdf",
+                "size": 1024000,
+                "type": "application/pdf",
+                "lastModified": 1640995200000
+            },
+            "created_at": "2024-01-15 10:00:00",
+            "updated_at": "2024-01-15 10:00:00",
+            "subtopics": []
+        }
+    ],
+    "statistics": {
+        "total_lessons": 8,
+        "active_lessons": 4,
+        "inactive_lessons": 4,
+        "total_subtopics": 3,
+        "total_chapters": 5,
+        "total_content_hours": 3.5
+    }
+}

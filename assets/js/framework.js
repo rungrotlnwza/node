@@ -1,3 +1,4 @@
+console.log('framework.js loaded');
 // Cookie utility functions
 function setCookie(name, value, days) {
     const date = new Date();

@@ -143,7 +143,7 @@
               <hr class="dropdown-divider">
             </li>
             <li id="admin">
-              <a class="dropdown-item" href="/private/admin/index">
+              <a class="dropdown-item" href="/private/admin">
                 <i class="fa fa-shield-alt me-2"></i>ระบบผู้ดูแลระบบ
               </a>
             </li>
@@ -151,9 +151,9 @@
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item" href="/auth/login">
+              <button onclick="logout()" class="dropdown-item" href="/auth/login">
                 <i class="fa fa-sign-out me-2"></i>ออกจากระบบ
-              </a>
+              </button>
             </li>
           </ul>
         </li>
@@ -193,5 +193,11 @@
   } else {
     document.getElementById('admin').classList.add('d-none');
     document.getElementById('admin').classList.remove('d-block');
+  }
+
+  function logout() {
+    deleteCookie('token');
+    deleteCookie('user')
+    window.location.href = '/';
   }
 </script>

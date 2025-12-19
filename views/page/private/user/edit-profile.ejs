@@ -1,0 +1,246 @@
+<div class="container-fluid bg-dark mt-5">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card bg-dark border border-warning">
+          <!-- Edit Header -->
+          <div class="card-header bg-warning text-dark text-center">
+            <h3 class="mb-1">
+              <i class="fas fa-edit me-2"></i>แก้ไขข้อมูลส่วนตัว
+            </h3>
+            <p class="mb-0">อัปเดตข้อมูลส่วนตัวของคุณ</p>
+          </div>
+          <!-- Edit Form -->
+          <div class="card-body p-4">
+            <form id="editProfileForm" novalidate>
+              <!-- Personal Information Section -->
+              <div class="bg-secondary rounded p-3 mb-4">
+                <h6 class="text-warning border-bottom border-warning pb-2 mb-3">
+                  <i class="fas fa-user me-2"></i>ข้อมูลส่วนตัว
+                </h6>
+                <div class="row g-3">
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <label for="firstName" class="form-label text-light">ชื่อ <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control bg-dark text-light border-warning" id="firstName" name="firstName" required>
+                    <div class="text-danger small" id="firstNameError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <label for="lastName" class="form-label text-light">นามสกุล <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control bg-dark text-light border-warning" id="lastName" name="lastName" required>
+                    <div class="text-danger small" id="lastNameError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <label for="birthday" class="form-label text-light">วันเกิด</label>
+                    <input type="date" class="form-control bg-dark text-light border-warning" id="birthday" name="birthday">
+                    <div class="text-danger small" id="birthdayError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <label for="phone" class="form-label text-light">เบอร์โทรศัพท์</label>
+                    <input type="tel" class="form-control bg-dark text-light border-warning" id="phone" name="phone" value="" required>
+                    <div class="text-danger small" id="phoneError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <label for="email" class="form-label text-light">อีเมล</label>
+                    <input type="email" class="form-control bg-dark text-light border-warning" id="email" name="email" required>
+                    <div class="text-danger small" id="emailError"></div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <label class="form-label text-light">ระดับการศึกษา</label>
+
+                    <div class="row">
+                      <div class="col-6">
+                        <select class="form-select bg-dark text-light border-warning" id="education_level" name="education_level" required>
+                          <option value="">ระดับการศึกษา</option>
+                          <option value="primary">ประถมศึกษา</option>
+                          <option value="secondary">มัธยมศึกษา</option>
+                          <option value="vocational">ปวช./ปวส.</option>
+                          <option value="bachelor">ปริญญาตรี</option>
+                          <option value="master">ปริญญาโท</option>
+                          <option value="doctor">ปริญญาเอก</option>
+                        </select>
+                      </div>
+
+                      <div class="col-6">
+                        <select class="form-select bg-dark text-light border-warning" id="education_status" name="education_status" required>
+                          <option value="">สถานะ</option>
+                          <option value="studying">กำลังศึกษา</option>
+                          <option value="graduated">จบแล้ว</option>
+                          <option value="dropped">ไม่ได้เรียนต่อ</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="text-danger small" id="educationError"></div>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label text-light">ที่อยู่ (จังหวัด)</label>
+
+                    <div class="row g-2">
+                      <!-- จังหวัด -->
+                      <div class="col-12 col-md-4">
+                        <select class="form-select bg-dark text-light border-warning" id="province" name="province_id" required>
+                          <option value="">จังหวัด</option>
+                        </select>
+                      </div>
+
+                      <!-- อำเภอ / เขต -->
+                      <div class="col-12 col-md-4">
+                        <select class="form-select bg-dark text-light border-warning" id="district" name="district_id" disabled required>
+                          <option value="">อำเภอ / เขต</option>
+                        </select>
+                      </div>
+
+                      <!-- ตำบล / แขวง -->
+                      <div class="col-12 col-md-4">
+                        <select class="form-select bg-dark text-light border-warning" id="subDistrict" name="sub_district_id" disabled required>
+                          <option value="">ตำบล / แขวง</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="text-danger small mt-1" id="addressError"></div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="d-flex justify-content-between mt-4">
+              <a href="/user/me" class="btn btn-outline-warning">
+                <i class="fas fa-times me-1"></i>ยกเลิก
+              </a>
+              <button onclick="update()" class="btn btn-warning">
+                <i class="fas fa-save me-1"></i>บันทึกข้อมูล
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    if (getCookie('user')) {
+      const data = JSON.parse(getCookie('user'));
+      document.getElementById("firstName").value = data.first_name || '-';
+      document.getElementById("lastName").value = data.last_name || '-';
+      document.getElementById("phone").value = data.phone || '-';
+      document.getElementById("email").value = data.email || '-';
+      document.getElementById("birthday").value = data.birth_date || '-';
+      document.getElementById("education_level").value = data.education_level || '-';
+      document.getElementById("education_status").value = data.education_status || '-';
+    }
+    let rawData = []; // เก็บ data ทั้งก้อน
+
+    // โหลดข้อมูล
+    fetch('https://raw.githubusercontent.com/kongvut/thai-province-data/refs/heads/master/api/latest/province_with_district_and_sub_district.json')
+      .then(res => res.json())
+      .then(data => {
+        rawData = data;
+        renderProvinces(data);
+      });
+
+    function renderProvinces(data) {
+      const provinceSelect = document.getElementById('province');
+      provinceSelect.innerHTML = '<option value="">-- เลือกจังหวัด --</option>';
+
+      data.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.name_th; // ✅ ส่งชื่อ
+        opt.textContent = p.name_th;
+        provinceSelect.appendChild(opt);
+      });
+    }
+
+    // เลือกจังหวัด
+    document.getElementById('province').addEventListener('change', function() {
+      const provinceName = this.value;
+      const districtSelect = document.getElementById('district');
+      const subDistrictSelect = document.getElementById('subDistrict');
+
+      districtSelect.innerHTML = '<option value="">-- เลือกอำเภอ/เขต --</option>';
+      subDistrictSelect.innerHTML = '<option value="">-- เลือกตำบล/แขวง --</option>';
+      subDistrictSelect.disabled = true;
+
+      if (!provinceName) {
+        districtSelect.disabled = true;
+        return;
+      }
+
+      // ✅ หา province ด้วย name_th
+      const province = rawData.find(p => p.name_th === provinceName);
+      if (!province) return;
+
+      province.districts.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.name_th; // ✅ ส่งชื่อ
+        opt.textContent = d.name_th;
+        districtSelect.appendChild(opt);
+      });
+
+      districtSelect.disabled = false;
+    });
+
+    // เลือกอำเภอ/เขต
+    document.getElementById('district').addEventListener('change', function() {
+      const districtName = this.value;
+      const subDistrictSelect = document.getElementById('subDistrict');
+
+      subDistrictSelect.innerHTML = '<option value="">-- เลือกตำบล/แขวง --</option>';
+
+      if (!districtName) {
+        subDistrictSelect.disabled = true;
+        return;
+      }
+
+      const provinceName = document.getElementById('province').value;
+
+      // ✅ หา province ด้วย name_th
+      const province = rawData.find(p => p.name_th === provinceName);
+      if (!province) return;
+
+      // ✅ หา district ด้วย name_th
+      const district = province.districts.find(d => d.name_th === districtName);
+      if (!district) return;
+
+      district.sub_districts.forEach(sd => {
+        const opt = document.createElement('option');
+        opt.value = sd.name_th; // ✅ ส่งชื่อ
+        opt.textContent = sd.name_th;
+        subDistrictSelect.appendChild(opt);
+      });
+
+      subDistrictSelect.disabled = false;
+    });
+
+    function update() {
+      fetch('/api/update', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('token')}`
+          },
+          body: JSON.stringify({
+            first_name: firstName.value,
+            last_name: lastName.value,
+            phone: phone.value,
+            email: email.value,
+            birth_date: birthday.value,
+            education_level: education_level.value,
+            education_status: education_status.value,
+            province_name: province.value,
+            district_name: district.value,
+            sub_district_name: subDistrict.value
+          })
+        })
+        .then(res => {
+          if (!res.ok) throw new Error('update failed');
+          return res.json();
+        })
+        .then(data => {
+          deleteCookie('user');
+          // setCookie('user', JSON.stringify(data), 1);
+          updateCookieUser();
+
+          // 🔥 reload หลัง set เสร็จ
+          location.reload();
+        })
+        .catch(console.error);
+    }
+  </script>
