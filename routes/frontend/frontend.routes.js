@@ -213,6 +213,16 @@ router.get('/standard-test/ielts', (req, res) => {
         layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
     })
 })
+router.get('/contact/contact', (req, res) => [
+    res.render(path.join(__dirname, '../../views/page/contact/contact.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+])
+router.get('/contact/work', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/contact/work.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
+    })
+})
 // admin
 router.get('/admin/admin', (req, res) => [
     res.render(path.join(__dirname, '../../views/page/admin/admin.ejs'), {
