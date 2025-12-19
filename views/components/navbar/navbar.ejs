@@ -3,10 +3,10 @@
   <div class="container-fluid">
 
     <a class="navbar-brand text-dark" href="/">
-      <img src="../favicon.ico" alt="">
+      <img src="/assets/image/logo-eol.png" class="img-fluid" alt="" style="height: 40px;">
     </a>
     <div class="d-flex align-items-center">
-      <a href="" class="btn btn-primary d-lg-none me-2">login</a>
+      <a id="LoginBtn" href="/auth/login" class="btn btn-primary d-lg-none me-2">login</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -114,7 +114,7 @@
 
       <!-- Login/Register - Right Side -->
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown">
+        <li id="private" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-user me-1"></i>PROFILE
           </a>
@@ -142,25 +142,27 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="/private/admin/index">
+            <li id="admin">
+              <a class="dropdown-item" href="/private/admin/index">
                 <i class="fa fa-shield-alt me-2"></i>ระบบผู้ดูแลระบบ
               </a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="/auth/login">
+            <li>
+              <a class="dropdown-item" href="/auth/login">
                 <i class="fa fa-sign-out me-2"></i>ออกจากระบบ
               </a>
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li id="loginLink" class="nav-item">
           <a class="nav-link text-dark" href="/auth/login">
             <i class="fa fa-sign-in me-1"></i>LOGIN
           </a>
         </li>
-        <li class="nav-item">
+        <li id="registerLink" class="nav-item">
           <a class="nav-link text-dark" href="/auth/register">
             <i class="fa fa-user-plus me-1"></i>REGISTER
           </a>
@@ -169,3 +171,27 @@
     </div>
   </div>
 </nav>
+<script>
+  if (getCookie('token')) {
+    document.getElementById('LoginBtn').classList.add('d-none');
+    document.getElementById('LoginBtn').classList.remove('d-block');
+    document.getElementById('loginLink').classList.add('d-none');
+    document.getElementById('registerLink').classList.add('d-none');
+    document.getElementById('private').classList.remove('d-none');
+    document.getElementById('private').classList.add('d-block');
+  } else {
+    document.getElementById('LoginBtn').classList.add('d-block');
+    document.getElementById('LoginBtn').classList.remove('d-none');
+    document.getElementById('loginLink').classList.remove('d-none');
+    document.getElementById('registerLink').classList.remove('d-none');
+    document.getElementById('private').classList.add('d-none');
+    document.getElementById('private').classList.remove('d-block');
+  }
+  if (decodeCookie('token').role === 'admin') {
+    document.getElementById('admin').classList.remove('d-none');
+    document.getElementById('admin').classList.add('d-block');
+  } else {
+    document.getElementById('admin').classList.add('d-none');
+    document.getElementById('admin').classList.remove('d-block');
+  }
+</script>
