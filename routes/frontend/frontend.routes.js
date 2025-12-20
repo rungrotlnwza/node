@@ -223,28 +223,6 @@ router.get('/contact/work', (req, res) => {
         layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
     })
 })
-// admin
-router.get('/private/admin', (req, res) => [
-    res.render(path.join(__dirname, '../../views/page/admin/admin.ejs'), {
-        layout: path.join(__dirname, '../../views/layouts/admin.layout.ejs')
-    })
-])
-router.get('/admin/addlesson', (req, res) => {
-    res.render(path.join(__dirname, '../../views/page/admin/add-lesson.ejs'), {
-        layout: path.join(__dirname, '../../views/layouts/admin.layout.ejs')
-    })
-})
-
-router.get('/eol/lesson', (req, res) => {
-    res.render(path.join(__dirname, '../../views/page/eol/lesson.ejs'), {
-        layout: path.join(__dirname, '../../views/layouts/default.layout.ejs')
-    })
-})
-router.get('/admin/lesson/update', (req, res) => {
-    res.render(path.join(__dirname, '../../views/page/admin/update-lesson.ejs'), {
-        layout: path.join(__dirname, '../../views/layouts/admin.layout.ejs')
-    })
-})
 
 // user
 router.get('/private/user/profile', (req, res) => {
