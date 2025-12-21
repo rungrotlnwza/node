@@ -11,7 +11,7 @@
 
   <div class="col-12 mt-4">
     <div class="d-flex justify-content-end gap-2">
-      <a href="/admin/lesson" class="btn btn-primary px-4">ย้อนกลับ</a>
+      <button type="button" onclick="history.back()" class="btn btn-primary px-4">ย้อนกลับ</button>
     </div>
   </div>
 </div>
@@ -71,7 +71,9 @@
     </div>
   </div>
 </template>
-
+<template id="preview-html-template">
+  <div class="item-html-content"></div>
+</template>
 <template id="status-open-template">
   <span class="badge bg-success">เปิดใช้งาน (Open)</span>
 </template>
@@ -114,34 +116,35 @@
     // 2. วนลูปสร้างเนื้อหาแต่ละชิ้น
     lesson.lesson_content.forEach(item => {
       let itemClone;
-      const type = item.type === 'file' ? 'image' : item.type; // ปรับ logic ประเภท
 
-      if (type === 'text') {
+      // ตรวจเช็คตามประเภทที่คุณแจ้งว่าจะปรับใน Migration
+      if (item.type === 'html') {
+        itemClone = getTemplateClone('preview-html-template');
+        // ใช้ innerHTML เพื่อให้ Browser render tag ต่างๆ เช่น <b>, <i>, <p> ครับ
+        itemClone.querySelector('.item-html-content').innerHTML = item.value;
+
+      } else if (item.type === 'text') {
         itemClone = getTemplateClone('preview-text-template');
         itemClone.querySelector('.item-value').textContent = item.value;
-      } else if (type === 'image') {
+
+      } else if (item.type === 'image' || item.type === 'file') {
         itemClone = getTemplateClone('preview-image-template');
         itemClone.querySelector('.item-url').src = item.url;
-      } else if (type === 'pdf') {
+
+      } else if (item.type === 'pdf') {
         itemClone = getTemplateClone('preview-pdf-template');
-
-        // 1. ส่ง URL เข้าไปที่ tag <embed> เพื่อให้ Browser render PDF
-        const pdfEmbed = itemClone.querySelector('.item-url');
-        pdfEmbed.src = item.url;
-
-        // 2. (Optional) ส่ง URL ไปที่ปุ่ม "เปิดในหน้าต่างใหม่" เผื่อ user อยากดูเต็มหน้าจอ
-        const pdfLink = itemClone.querySelector('.item-link-text');
-        pdfLink.href = item.url;
+        itemClone.querySelector('.item-url').src = item.url;
+        itemClone.querySelector('.item-link-text').href = item.url;
       }
 
       if (itemClone) contentTarget.appendChild(itemClone);
     });
-
     // แสดงผลขึ้นหน้าจอ
     mainContainer.appendChild(mainClone);
   }
 
   // Fetch ข้อมูล
+  console.log('กำลังดึง data')
   if (lessonId) {
     fetch(`/api/lesson/${lessonId}`, {
         headers: {
@@ -150,6 +153,7 @@
       })
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         renderLesson(data.lesson);
       })
       .catch(err => console.error('Error:', err));
