@@ -4,6 +4,5 @@ key/
 uploads/
 *.html
 .json
-user.controller.js
 migration.js
 1.js

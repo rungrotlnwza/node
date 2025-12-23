@@ -1,21 +1,19 @@
 const express = require('express')
 const router = express.Router()
 const verifyToken = require('../../lib/middleware/jwt.middleware')
-const upload = require('../../lib/middleware/uploads.middleware')
+const upload = require('../../lib/config/muler.config')
 
 router.get('/example', require('../../lib/controller/public/example.controller'))
 
 // --- auth ---
-router.post('/register', require('../../lib/controller/auth/register.controller'))
-router.post('/login', require('../../lib/controller/auth/login.controller'))
-router.get('/me', verifyToken, require('../../lib/controller/auth/me.controller'))
-router.put('/update', verifyToken, require('../../lib/controller/auth/updateme.controller'))
+const auth = require('../../lib/controller/auth/auth.controller')
+router.post('/login', auth.login)
+router.post('/register', auth.register)
 
+const userController = require('../../lib/controller/user/user.controller')
+router.get('/profile', verifyToken, userController.getProfile)
+router.put('/profile', verifyToken, userController.updateProfile)
 
-
-// --- อื่นๆ ---
-router.post('/add-lesson', verifyToken, upload, require('../../lib/controller/lesson/add-lesson.controller'))
-router.delete('/delete-lesson/:id', verifyToken, require('../../lib/controller/lesson/delete-lesson.controller'))
-router.put('/update-lesson/:id', verifyToken, upload, require('../../lib/controller/lesson/update-lesson.controller'))
-
+const lesson = require('../../lib/controller/lesson/lesson.controller')
+router.post('/lesson', verifyToken, upload.any(), lesson.addLesson)
 module.exports = router

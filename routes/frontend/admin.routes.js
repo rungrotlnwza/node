@@ -8,7 +8,7 @@ router.get('/private/admin', (req, res) => [
     })
 ])
 router.get('/private/addlesson', (req, res) => {
-    res.render(path.join(__dirname, '../../views/page/private/admin/add-lesson.ejs'), {
+    res.render(path.join(__dirname, '../../views/page/private/admin/addlesson.ejs'), {
         layout: path.join(__dirname, '../../views/layouts/admin.layout.ejs')
     })
 })
