@@ -156,8 +156,10 @@
       if (btnClose) btnClose.addEventListener('click', toggleSidebar);
     });
 
-    if (!getCookie('token') || !decodeCookie('token').role('admin')) {
+    if (!getCookie('token') || !decodeCookie('token') === 'admin') {
       window.location.href = '/'
+    } else {
+      console.log('admin')
     }
   </script>
 </body>
