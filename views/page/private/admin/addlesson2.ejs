@@ -1,0 +1,294 @@
+<style>
+  body {
+    background-color: #f0f2f5;
+  }
+
+  .paper-container {
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 20px auto;
+    background-color: white !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+
+  .code-mode {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4;
+    font-family: Consolas, monospace;
+  }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" />
+<script src="https://unpkg.com/prettier@3.2.5/standalone.js"></script>
+<script src="https://unpkg.com/prettier@3.2.5/plugins/html.js"></script>
+
+<div class="mb-3">
+  <label class="form-label">ชื่อบทเรียน</label>
+  <input type="text" id="lesson_name" class="form-control" placeholder="ระบุชื่อบทเรียน...">
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-4">
+    <label class="form-label">หมวดหมู่</label>
+    <select id="lesson_category" class="form-select">
+      <option value="reading">Reading</option>
+      <option value="listening">Listening</option>
+      <option value="grammar">Grammar</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">ระดับ (Level)</label>
+    <select id="lesson_level" class="form-select">
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B1">B1</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">สถานะ</label>
+    <select id="lesson_status" class="form-select">
+      <option value="open">เปิดใช้งาน</option>
+      <option value="close">ปิดใช้งาน</option>
+    </select>
+  </div>
+</div>
+<!-- Toolbar -->
+<div id="menu" class="container p-2 d-flex gap-2 bg-dark">
+  <button class="btn btn-sm btn-outline-light" onclick="formatDoc('bold')" title="ตัวหนา">
+    <i class="fa-solid fa-bold"></i>
+  </button>
+  <button class="btn btn-sm btn-outline-light" onclick="formatDoc('italic')" title="ตัวเอียง">
+    <i class="fa-solid fa-italic"></i>
+  </button>
+  <button class="btn btn-sm btn-outline-light" onclick="toggleCodeMode()" title="สลับโหมด Code">
+    <i class="fa-solid fa-code"></i>
+  </button>
+  <button class="btn btn-sm btn-outline-light" onclick="triggerImageInput()" title="แทรกรูปภาพ">
+    <i class="fa-solid fa-image"></i>
+  </button>
+  <button type="button" onclick="handleMediaClick('video')" title="ใส่วิดีโอ">📹</button>
+  <button type="button" onclick="handleMediaClick('audio')" title="ใส่เสียง">🎵</button>
+  <input type="file" id="imageInput" accept="image/*" hidden onchange="insertImage(this)" />
+</div>
+
+<!-- Editor -->
+<div id="editor" class="paper-container text-dark" contenteditable="true">
+  <p>เริ่มพิมพ์งานที่นี่...</p>
+</div>
+
+<!-- Controls -->
+<div style="margin:20px">
+  <button onclick="log()">Log HTML</button>
+  <button onclick="syncToMonaco()">Sync to Monaco</button>
+</div>
+
+<!-- Monaco -->
+<div id="container" style="height:400px;"></div>
+<button type="button" class="btn btn-sm btn-success ms-auto" onclick="saveLesson()" title="บันทึกเอกสาร">
+  <i class="fa-solid fa-floppy-disk"></i> Save
+</button>
+
+<!-- ================= Script ================= -->
+
+<script>
+  /* ---------- Editor Logic ---------- */
+
+  function formatDoc(cmd, value = null) {
+    document.execCommand(cmd, false, value);
+  }
+
+  function toggleCodeMode() {
+    document.getElementById('editor').classList.toggle('code-mode');
+  }
+
+  function triggerImageInput() {
+    document.getElementById('imageInput').click();
+  }
+  const mediaBlobMap = {}; // filename -> blobUrl
+  const pendingFiles = []; // File objects to be uploaded with the lesson
+
+  function handleMediaClick(type) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = type === 'video' ? 'video/*' : 'audio/*';
+
+    input.onchange = () => {
+      const file = input.files[0];
+      if (!file) return;
+
+      const blobUrl = URL.createObjectURL(file);
+      mediaBlobMap[file.name] = blobUrl;
+
+      const html =
+        type === 'video' ?
+        `
+          <video
+            src="${blobUrl}"
+            data-filename="${file.name}"
+            controls
+            style="max-width:100%; display:block; margin:10px 0;"
+          ></video>
+        ` :
+        `
+          <audio
+            src="${blobUrl}"
+            data-filename="${file.name}"
+            controls
+            style="display:block; margin:10px 0;"
+          ></audio>
+        `;
+
+      document.execCommand('insertHTML', false, html);
+      // remember file for upload
+      pendingFiles.push(file);
+      input.value = '';
+    };
+
+    input.click();
+  }
+
+  function insertImage(input) {
+    if (!input.files || !input.files[0]) return;
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = e => {
+      const imgHTML = `
+      <img
+        src="${e.target.result}"
+        data-filename="${file.name}"
+        style="max-width:100%; display:block; margin:10px 0;"
+      />
+    `;
+      document.execCommand('insertHTML', false, imgHTML);
+      // remember file for upload
+      pendingFiles.push(file);
+      input.value = '';
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  /* ---------- Document Source ---------- */
+
+  function getDocumentHTMLForMonaco() {
+    const clone = document.getElementById('editor').cloneNode(true);
+
+    clone.querySelectorAll('img, video, audio').forEach(el => {
+      const filename = el.getAttribute('data-filename');
+      if (filename) {
+        el.setAttribute('src', filename);
+      }
+    });
+
+    return clone.innerHTML.trim();
+  }
+
+
+  function getDocumentHTML() {
+    return document.getElementById('editor').innerHTML.trim();
+  }
+
+  function log() {
+    console.log(getDocumentHTML());
+  }
+</script>
+
+<!-- Monaco Loader -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.9/beautify-html.min.js"></script>
+<script>
+  require.config({
+    paths: {
+      vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs'
+    }
+  });
+
+  let monacoEditor;
+
+  require(['vs/editor/editor.main'], function() {
+    monacoEditor = monaco.editor.create(
+      document.getElementById('container'), {
+        value: getDocumentHTML(),
+        language: 'html',
+        theme: 'vs-dark',
+        automaticLayout: true
+      }
+    );
+  });
+
+  async function syncToMonaco() {
+    if (!monacoEditor) return;
+
+    const rawHTML = getDocumentHTMLForMonaco();
+
+    try {
+      // ใช้ Prettier format (ซึ่งติดมากับไฟล์คุณอยู่แล้ว)
+      // prettier.format เป็น async function ในเวอร์ชัน 3.x
+      const formattedHTML = await prettier.format(rawHTML, {
+        parser: "html",
+        plugins: prettierPlugins,
+        printWidth: 80,
+        tabWidth: 2,
+      });
+
+      monacoEditor.setValue(formattedHTML);
+    } catch (error) {
+      console.error("Formatting error:", error);
+      // ถ้า format พลาด ให้ส่งค่าดิบเข้าไปแทน
+      monacoEditor.setValue(rawHTML);
+    }
+  }
+
+  function revokeAllMediaBlobs() {
+    Object.values(mediaBlobMap).forEach(url => {
+      try {
+        URL.revokeObjectURL(url);
+      } catch (_) {}
+    });
+  }
+  revokeAllMediaBlobs()
+</script>
+<script>
+  async function saveLesson() {
+    const formData = new FormData();
+
+    // append form fields (name/category/level/status)
+    formData.append('lesson_name', document.getElementById('lesson_name').value || '');
+    formData.append('lesson_category', document.getElementById('lesson_category').value || '');
+    formData.append('lesson_level', document.getElementById('lesson_level').value || '');
+    formData.append('lesson_status', document.getElementById('lesson_status').value || '');
+
+    formData.append('lesson_content', getDocumentHTMLForMonaco());
+
+    // ถ้าจะ upload media ต้องมี pendingFiles
+    pendingFiles.forEach(file => {
+      formData.append('media', file);
+    });
+
+    try {
+      const response = await fetch('/api/lesson', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${getCookie('token')}`
+        },
+        body: formData
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        console.error('API error:', result);
+        // show server detail in console and message to user
+        const detail = result.detail ? `\n
+Detail: ${result.detail}` : '';
+        throw new Error((result.message || 'Server error') + detail);
+      }
+      alert('บันทึกสำเร็จ');
+    } catch (err) {
+      console.error('SaveLesson failed:', err);
+      alert('เกิดข้อผิดพลาด: ' + (err.message || 'ส่งข้อมูลไม่สำเร็จ'));
+    }
+  }
+</script>

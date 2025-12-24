@@ -12,6 +12,11 @@ router.get('/private/addlesson', (req, res) => {
         layout: path.join(__dirname, '../../views/layouts/admin.layout.ejs')
     })
 })
+router.get('/addlesson', (req, res) => {
+    res.render(path.join(__dirname, '../../views/page/private/admin/addlesson2.ejs'), {
+        layout: path.join(__dirname, '../../views/layouts/admin.layout.ejs')
+    })
+})
 router.get('/private/update-lesson', (req, res) => {
     res.render(path.join(__dirname, '../../views/page/private/admin/update-lesson.ejs'), {
         layout: path.join(__dirname, '../../views/layouts/admin.layout.ejs')
