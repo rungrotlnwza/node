@@ -1,496 +1,287 @@
 <style>
-  .editor-wrapper {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  body {
+    background-color: #f0f2f5;
   }
 
-  #editor-container {
-    height: 450px;
+  .paper-container {
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 20px auto;
+    background-color: white !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    outline: none;
   }
 
-  .preview-window {
-    border: 1px solid #ddd;
-    min-height: 400px;
-    background: white;
-    border-radius: 5px;
-  }
-
-  #monaco-container {
-    height: 400px;
-    border: 1px solid #3c3c3c;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-
-  .ql-editor img,
-  .ql-editor video {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
+  .code-mode {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4;
+    font-family: Consolas, monospace;
   }
 </style>
-
-<div class="row">
-  <div class="col-lg-7">
-    <div class="editor-wrapper p-4 mb-4">
-      <h4 class="mb-4">สร้างบทเรียนใหม่</h4>
-
-      <div class="mb-3">
-        <label class="form-label">ชื่อบทเรียน</label>
-        <input type="text" id="lesson_name" class="form-control" placeholder="ระบุชื่อบทเรียน...">
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label class="form-label">หมวดหมู่</label>
-          <select id="lesson_category" class="form-select">
-            <option value="reading">Reading</option>
-            <option value="listening">Listening</option>
-            <option value="grammar">Grammar</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">ระดับ (Level)</label>
-          <select id="lesson_level" class="form-select">
-            <option value="A1">A1</option>
-            <option value="A2">A2</option>
-            <option value="B1">B1</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">สถานะ</label>
-          <select id="lesson_status" class="form-select">
-            <option value="open">เปิดใช้งาน</option>
-            <option value="close">ปิดใช้งาน</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div id="toolbar-container">
-          <span class="ql-formats">
-            <button class="ql-bold"></button>
-            <button class="ql-italic"></button>
-            <button class="ql-underline"></button>
-          </span>
-          <span class="ql-formats">
-            <button class="ql-image" title="ใส่รูปภาพ"></button>
-            <button type="button" onclick="handleMediaClick('video')" title="ใส่วิดีโอ">📹</button>
-            <button type="button" onclick="handleMediaClick('audio')" title="ใส่เสียง">🎵</button>
-            <button type="button" onclick="handleFileClick()" title="ใส่ไฟล์เอกสาร">📄</button>
-          </span>
-        </div>
-        <div id="editor-container"></div>
-      </div>
-
-      <div class="text-end">
-        <button class="btn btn-outline-dark" onclick="processAndPreview()">🔍 ดู Code HTML และ Preview</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-5">
-    <div class="card shadow-sm sticky-top" style="top: 20px;">
-      <div class="card-header bg-primary text-white">ผลลัพธ์ Preview</div>
-      <div class="card-body">
-        <div id="final-preview" class="preview-window p-3 mb-3">
-          <p class="text-muted">กดปุ่มดู Preview เพื่อแสดงผลที่นี่ครับ</p>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label font-weight-bold">HTML Code (จัดระเบียบแล้ว)</label>
-          <div id="monaco-container"></div>
-        </div>
-
-        <button class="btn btn-success w-100 py-3" onclick="saveLesson()">
-          🚀 บันทึกบทเรียนลง Database
-        </button>
-        <div id="upload-status" class="text-center mt-2 small text-muted"></div>
-      </div>
-    </div>
-  </div>
+<div class="mb-3">
+  <label class="form-label">ชื่อบทเรียน</label>
+  <input type="text" id="lesson_name" class="form-control" placeholder="ระบุชื่อบทเรียน..." required>
 </div>
 
+<div class="row mb-3">
+  <div class="col-md-4">
+    <label class="form-label">หมวดหมู่</label>
+    <select id="lesson_category" class="form-select">
+      <option value="reading">Reading</option>
+      <option value="listening">Listening</option>
+      <option value="grammar">Grammar</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">ระดับ (Level)</label>
+    <select id="lesson_level" class="form-select">
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">สถานะ</label>
+    <select id="lesson_status" class="form-select">
+      <option value="open">เปิดใช้งาน</option>
+      <option value="close">ปิดใช้งาน</option>
+    </select>
+  </div>
+</div>
+<!-- Toolbar -->
+<div id="menu" class="container p-2 d-flex gap-2 bg-dark">
+  <button class="btn btn-sm btn-outline-light" onclick="formatDoc('bold')" title="ตัวหนา">
+    <i class="fa-solid fa-bold"></i>
+  </button>
+  <button class="btn btn-sm btn-outline-light" onclick="formatDoc('italic')" title="ตัวเอียง">
+    <i class="fa-solid fa-italic"></i>
+  </button>
+  <button class="btn btn-sm btn-outline-light" onclick="toggleCodeMode()" title="สลับโหมด Code">
+    <i class="fa-solid fa-code"></i>
+  </button>
+  <button class="btn btn-sm btn-outline-light" onclick="triggerImageInput()" title="แทรกรูปภาพ">
+    <i class="fa-solid fa-image"></i>
+  </button>
+  <button type="button" onclick="handleMediaClick('video')" title="ใส่วิดีโอ">📹</button>
+  <button type="button" onclick="handleMediaClick('audio')" title="ใส่เสียง">🎵</button>
+  <input type="file" id="imageInput" accept="image/*" hidden onchange="insertImage(this)" />
+</div>
+
+<!-- Editor -->
+<div id="editor" class="paper-container text-dark" contenteditable="true">
+  <p>เริ่มพิมพ์งานที่นี่...</p>
+</div>
+
+<!-- Controls -->
+<div style="margin:20px">
+  <button onclick="log()">Log HTML</button>
+  <button onclick="syncToMonaco()">Sync to Monaco</button>
+</div>
+
+<!-- Monaco -->
+<div id="container" style="height:400px;"></div>
+<button type="button" class="btn btn-sm btn-success ms-auto" onclick="saveLesson()" title="บันทึกเอกสาร">
+  <i class="fa-solid fa-floppy-disk"></i> Save
+</button>
 <script>
-  Quill.debug(false);
-  // --- ตั้งค่า Multimedia Blots ---
-  let BlockEmbed = Quill.import('blots/block/embed');
-  class VideoBlot extends BlockEmbed {
-    static create(value) {
-      let node = super.create();
-      node.setAttribute('src', value.url);
-      node.setAttribute('data-filename', value.filename);
-      node.setAttribute('controls', '');
-      node.setAttribute('class', 'w-100 my-2');
-      return node;
-    }
-    static value(node) {
-      return {
-        url: node.getAttribute('src'),
-        filename: node.getAttribute('data-filename')
-      };
-    }
+  /* ---------- Editor Logic ---------- */
+
+  function formatDoc(cmd, value = null) {
+    document.execCommand(cmd, false, value);
   }
-  VideoBlot.blotName = 'video';
-  VideoBlot.tagName = 'video';
-  Quill.register(VideoBlot);
 
-  class AudioBlot extends BlockEmbed {
-    static create(value) {
-      let node = super.create();
-      node.setAttribute('src', value.url);
-      node.setAttribute('data-filename', value.filename);
-      node.setAttribute('controls', '');
-      node.setAttribute('class', 'w-100 my-2');
-      return node;
-    }
-    static value(node) {
-      return {
-        url: node.getAttribute('src'),
-        filename: node.getAttribute('data-filename')
-      };
-    }
+  function toggleCodeMode() {
+    document.getElementById('editor').classList.toggle('code-mode');
   }
-  AudioBlot.blotName = 'audio';
-  AudioBlot.tagName = 'audio';
-  Quill.register(AudioBlot);
 
-  // --- เริ่มต้น Quill ---
-  var quill = new Quill('#editor-container', {
-    modules: {
-      toolbar: '#toolbar-container'
-    },
-    theme: 'snow'
-  });
+  function triggerImageInput() {
+    document.getElementById('imageInput').click();
+  }
+  const mediaBlobMap = {}; // filename -> blobUrl
+  const pendingFiles = []; // File objects to be uploaded with the lesson
 
-  let pendingFiles = [];
-  var blobMap = {};
-
-  // --- เริ่มต้น Monaco ---
-  var monacoEditor;
-  (function() {
-    const _monacoBase = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs';
-
-    function createEditor() {
-      if (monacoEditor) return;
-      monacoEditor = monaco.editor.create(document.getElementById('monaco-container'), {
-        value: "",
-        language: 'html',
-        theme: 'vs-dark',
-        automaticLayout: true,
-        minimap: {
-          enabled: false
-        }
-      });
-    }
-
-    function initMonaco() {
-      if (typeof require === 'undefined' || !require.config) return;
-      try {
-        require.config({
-          paths: {
-            vs: _monacoBase
-          }
-        });
-        if (require.defined && require.defined('vs/editor/editor.main')) {
-          createEditor();
-        } else {
-          require(['vs/editor/editor.main'], function() {
-            createEditor();
-          });
-        }
-      } catch (e) {
-        console.error('Monaco init error:', e);
-      }
-    }
-
-    if (typeof window.require === 'undefined' || !window.require.config) {
-      var s = document.createElement('script');
-      s.src = _monacoBase + '/loader.min.js';
-      s.onload = initMonaco;
-      s.onerror = function() {
-        console.error('Failed to load Monaco loader.');
-      };
-      document.head.appendChild(s);
-    } else {
-      initMonaco();
-    }
-  })();
-
-  // --- จัดการไฟล์มัลติมีเดีย ---
   function handleMediaClick(type) {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = type === 'video' ? 'video/*' : 'audio/*';
+
     input.onchange = () => {
       const file = input.files[0];
-      const range = quill.getSelection(true);
+      if (!file) return;
+
       const blobUrl = URL.createObjectURL(file);
-      blobMap[file.name] = blobUrl;
-      quill.insertEmbed(range.index, type, {
-        url: blobUrl,
-        filename: file.name
-      });
+      mediaBlobMap[file.name] = blobUrl;
+
+      const html =
+        type === 'video' ?
+        `
+          <video
+            src="${blobUrl}"
+            data-filename="${file.name}"
+            controls
+            style="max-width:100%; display:block; margin:10px 0;"
+          ></video>
+        ` :
+        `
+          <audio
+            src="${blobUrl}"
+            data-filename="${file.name}"
+            controls
+            style="display:block; margin:10px 0;"
+          ></audio>
+        `;
+
+      document.execCommand('insertHTML', false, html);
+      // remember file for upload
       pendingFiles.push(file);
-      // Ensure any inserted media gets proper classes
-      try {
-        addImgClassesToEditor();
-      } catch (err) {}
+      input.value = '';
     };
+
     input.click();
   }
 
-  function handleFileClick() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '*/*';
-    input.onchange = () => {
-      const file = input.files[0];
-      const range = quill.getSelection(true) || {
-        index: 0
-      };
-      const blobUrl = URL.createObjectURL(file);
-      blobMap[file.name] = blobUrl;
-      const lower = (file.type || '').toLowerCase();
-      let html = '';
-      if (lower === 'application/pdf') {
-        // Insert an anchor/placeholder into Quill (Quill may strip iframes),
-        // preview rendering will convert this to an iframe using blobMap.
-        html = `<a href="${blobUrl}" data-filename="${file.name}" class="file-link" target="_blank">${file.name}</a>`;
-      } else if (lower.startsWith('image/')) {
-        html = `<img src="${blobUrl}" data-filename="${file.name}" class="img-fluid rounded my-2">`;
-      } else if (lower.startsWith('video/')) {
-        html = `<video src="${blobUrl}" data-filename="${file.name}" controls class="w-100 my-2"></video>`;
-      } else if (lower.startsWith('audio/')) {
-        html = `<audio src="${blobUrl}" data-filename="${file.name}" controls class="w-100 my-2"></audio>`;
-      } else {
-        // Unknown file type: insert download link
-        html = `<a href="${blobUrl}" data-filename="${file.name}" target="_blank">${file.name}</a>`;
-      }
-      quill.clipboard.dangerouslyPasteHTML(range.index, html);
+  function insertImage(input) {
+    if (!input.files || !input.files[0]) return;
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = e => {
+      const imgHTML = `
+      <img
+        src="${e.target.result}"
+        data-filename="${file.name}"
+        style="max-width:100%; display:block; margin:10px 0;"
+      />
+    `;
+      document.execCommand('insertHTML', false, imgHTML);
+      // remember file for upload
       pendingFiles.push(file);
-      try {
-        addImgClassesToEditor();
-      } catch (err) {
-        console.error(err);
-      }
+      input.value = '';
     };
-    input.click();
+
+    reader.readAsDataURL(file);
   }
 
-  quill.getModule('toolbar').addHandler('image', () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = () => {
-      const file = input.files[0];
-      const range = quill.getSelection(true);
-      const blobUrl = URL.createObjectURL(file);
-      blobMap[file.name] = blobUrl;
-      const html = `<img src="${blobUrl}" data-filename="${file.name}" class="img-fluid rounded my-2">`;
-      quill.clipboard.dangerouslyPasteHTML(range.index, html);
-      pendingFiles.push(file);
-      try {
-        addImgClassesToEditor();
-      } catch (err) {
-        console.error(err);
+  /* ---------- Document Source ---------- */
+
+  function getDocumentHTMLForMonaco() {
+    const clone = document.getElementById('editor').cloneNode(true);
+
+    clone.querySelectorAll('img, video, audio').forEach(el => {
+      const filename = el.getAttribute('data-filename');
+      if (filename) {
+        el.setAttribute('src', filename);
       }
-    };
-    input.click();
+    });
+
+    return clone.innerHTML.trim();
+  }
+
+
+  function getDocumentHTML() {
+    return document.getElementById('editor').innerHTML.trim();
+  }
+
+  function log() {
+    console.log(getDocumentHTML());
+  }
+
+
+  require.config({
+    paths: {
+      vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs'
+    }
   });
 
-  // Ensure pasted/inserted media elements receive expected classes
-  function addImgClassesToEditor() {
-    try {
-      const imgs = quill.root.querySelectorAll('img');
-      imgs.forEach(img => {
-        const classes = new Set((img.getAttribute('class') || '').split(/\s+/).filter(Boolean));
-        classes.add('img-fluid');
-        classes.add('rounded');
-        if (!classes.has('my-2')) classes.add('my-2');
-        img.setAttribute('class', Array.from(classes).join(' '));
-      });
+  let monacoEditor;
 
-      const videos = quill.root.querySelectorAll('video');
-      videos.forEach(v => {
-        const classes = new Set((v.getAttribute('class') || '').split(/\s+/).filter(Boolean));
-        classes.add('w-100');
-        if (!classes.has('my-2')) classes.add('my-2');
-        v.setAttribute('class', Array.from(classes).join(' '));
-      });
-
-      const audios = quill.root.querySelectorAll('audio');
-      audios.forEach(a => {
-        const classes = new Set((a.getAttribute('class') || '').split(/\s+/).filter(Boolean));
-        if (!classes.has('my-2')) classes.add('my-2');
-        a.setAttribute('class', Array.from(classes).join(' '));
-      });
-
-      // ensure iframe/doc previews have sizing
-      const iframes = quill.root.querySelectorAll('iframe');
-      iframes.forEach(f => {
-        const classes = new Set((f.getAttribute('class') || '').split(/\s+/).filter(Boolean));
-        classes.add('w-100');
-        if (!classes.has('my-2')) classes.add('my-2');
-        f.setAttribute('class', Array.from(classes).join(' '));
-        if (!f.style.height) f.style.height = '400px';
-      });
-    } catch (err) {
-      console.error('addImgClassesToEditor error', err);
-    }
-  }
-
-  quill.on('text-change', function() {
-    addImgClassesToEditor();
+  require(['vs/editor/editor.main'], function() {
+    monacoEditor = monaco.editor.create(
+      document.getElementById('container'), {
+        value: getDocumentHTML(),
+        language: 'html',
+        theme: 'vs-dark',
+        automaticLayout: true
+      }
+    );
   });
 
-  // --- ระบบ Preview ---
-  function ensureMediaClasses(html) {
+  async function syncToMonaco() {
+    if (!monacoEditor) return;
+
+    const rawHTML = getDocumentHTMLForMonaco();
+
     try {
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = html;
-      wrapper.querySelectorAll('img').forEach(img => {
-        const classes = new Set((img.getAttribute('class') || '').split(/\s+/).filter(Boolean));
-        classes.add('img-fluid');
-        classes.add('rounded');
-        if (!classes.has('my-2')) classes.add('my-2');
-        img.setAttribute('class', Array.from(classes).join(' '));
+      // ใช้ Prettier format (ซึ่งติดมากับไฟล์คุณอยู่แล้ว)
+      // prettier.format เป็น async function ในเวอร์ชัน 3.x
+      const formattedHTML = await prettier.format(rawHTML, {
+        parser: "html",
+        plugins: prettierPlugins,
+        printWidth: 80,
+        tabWidth: 2,
       });
-      wrapper.querySelectorAll('video').forEach(v => {
-        const classes = new Set((v.getAttribute('class') || '').split(/\s+/).filter(Boolean));
-        classes.add('w-100');
-        if (!classes.has('my-2')) classes.add('my-2');
-        v.setAttribute('class', Array.from(classes).join(' '));
-      });
-      wrapper.querySelectorAll('audio').forEach(a => {
-        const classes = new Set((a.getAttribute('class') || '').split(/\s+/).filter(Boolean));
-        if (!classes.has('my-2')) classes.add('my-2');
-        a.setAttribute('class', Array.from(classes).join(' '));
-      });
-      return wrapper.innerHTML;
-    } catch (err) {
-      console.error('ensureMediaClasses error', err);
-      return html;
+
+      monacoEditor.setValue(formattedHTML);
+    } catch (error) {
+      console.error("Formatting error:", error);
+      // ถ้า format พลาด ให้ส่งค่าดิบเข้าไปแทน
+      monacoEditor.setValue(rawHTML);
     }
   }
 
-  function processAndPreview() {
-    let content = quill.root.innerHTML;
-    content = ensureMediaClasses(content);
-    const displayHtml = buildPreviewHtml(content);
-    document.getElementById('final-preview').innerHTML = `<div class="container-fluid">${displayHtml}</div>`;
-    const codeContent = htmlWithFilenames(content);
-    if (monacoEditor) {
-      monacoEditor.setValue(codeContent);
-      setTimeout(() => monacoEditor.getAction('editor.action.formatDocument').run(), 100);
-    }
+  function revokeAllMediaBlobs() {
+    Object.values(mediaBlobMap).forEach(url => {
+      try {
+        URL.revokeObjectURL(url);
+      } catch (_) {}
+    });
   }
+  revokeAllMediaBlobs()
 
-  function buildPreviewHtml(html) {
-    try {
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = html;
-      // For any element carrying data-filename, prefer blobMap['name'] for display
-      wrapper.querySelectorAll('[data-filename]').forEach(el => {
-        const fname = el.getAttribute('data-filename');
-        const blobUrl = blobMap[fname];
-        const tag = (el.tagName || '').toLowerCase();
-        if (blobUrl) {
-          if (tag === 'a') {
-            // if PDF, show inline iframe, otherwise keep as link
-            if (fname.toLowerCase().endsWith('.pdf')) {
-              const iframe = document.createElement('iframe');
-              iframe.src = blobUrl;
-              iframe.setAttribute('data-filename', fname);
-              iframe.className = (el.getAttribute('class') || '') + ' w-100 my-2';
-              iframe.style.border = '0';
-              iframe.style.height = '400px';
-              el.parentNode.replaceChild(iframe, el);
-            } else {
-              el.setAttribute('href', blobUrl);
-              el.setAttribute('target', '_blank');
-            }
-          } else {
-            if (el.hasAttribute('src')) el.setAttribute('src', blobUrl);
-          }
-        }
-      });
-      return wrapper.innerHTML;
-    } catch (err) {
-      console.error('buildPreviewHtml error', err);
-      return html;
-    }
-  }
-
-  function htmlWithFilenames(html) {
-    try {
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = html;
-      wrapper.querySelectorAll('[data-filename]').forEach(el => {
-        const fname = (el.getAttribute('data-filename') || '').trim();
-        if (!fname) return;
-        const tag = (el.tagName || '').toLowerCase();
-        if (tag === 'a') {
-          // anchor: set href to filename (persisted path)
-          el.setAttribute('href', fname);
-        } else if (tag === 'img' || tag === 'video' || tag === 'audio' || tag === 'iframe') {
-          el.setAttribute('src', fname);
-        } else {
-          // fallback: set href if possible
-          try {
-            el.setAttribute('href', fname);
-          } catch (e) {}
-        }
-      });
-      return wrapper.innerHTML;
-    } catch (err) {
-      console.error('htmlWithFilenames error', err);
-      return html;
-    }
-  }
-
-  // --- ส่งข้อมูลไปที่ POST /api/lesson ---
   async function saveLesson() {
     const formData = new FormData();
+
+    // 1. ใส่ข้อมูล Text fields ลงใน formData
     formData.append('lesson_name', document.getElementById('lesson_name').value);
     formData.append('lesson_category', document.getElementById('lesson_category').value);
     formData.append('lesson_level', document.getElementById('lesson_level').value);
     formData.append('lesson_status', document.getElementById('lesson_status').value);
-    formData.append('lesson_content', htmlWithFilenames(ensureMediaClasses(quill.root.innerHTML)));
+    formData.append('lesson_content', getDocumentHTMLForMonaco());
 
-    pendingFiles.forEach(file => formData.append('media', file));
-
-    document.getElementById('upload-status').innerText = "⏳ กำลังบันทึกข้อมูล...";
+    // 2. ใส่ไฟล์ลงใน formData
+    pendingFiles.forEach(file => {
+      formData.append('media', file);
+    });
 
     try {
       const response = await fetch('/api/lesson', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${getCookie('token')}` // ฟังก์ชันดึง Token ของคุณ
+          // ห้ามตั้ง Content-Type เองเมื่อใช้ FormData ครับ เพราะ Browser จะจัดการ Boundary ให้เอง
+          'Authorization': `Bearer ${getCookie('token')}`
         },
-        body: formData
-      });
+        body: formData // ส่ง formData ไปโดยตรงครับ
+      }).then(({
+        ok,
+        result
+      }) => {
+        if (!ok) {
+          console.error('API error:', result);
+          const detail = result.detail ? `\nDetail: ${JSON.stringify(result.detail)}` : '';
+          throw new Error((result.message || 'Server error') + detail);
+        }
 
-      const result = await response.json();
-      if (response.ok) {
-        alert('สำเร็จ: ' + result.message);
-        location.reload();
-      } else {
-        alert('พลาด: ' + result.message);
-      }
-    } catch (error) {
-      console.error(error);
-      alert('เกิดข้อผิดพลาดในการเชื่อมต่อครับ');
-    } finally {
-      document.getElementById('upload-status').innerText = "";
+        alert('บันทึกสำเร็จ');
+      })
+    } catch (err) {
+      console.error('SaveLesson failed:', err);
+      alert('เกิดข้อผิดพลาด: ' + (err.message || 'ส่งข้อมูลไม่สำเร็จ'));
     }
   }
-
-  // ฟังก์ชันช่วยดึง Cookie (ถ้าคุณเก็บ token ไว้ใน cookie)
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
 </script>
+
+<!-- สิ่งที่ได้เรียนรู้ -->
+<!-- ปรเภทของการส่งข้อมูลมีรูปแบบอยู่ โดยมากจะเป็น json แต่ถ้าอยากส่งข้อมูล และ ไฟลืด้วยจะต้องทำเป็น fromdata -->
+<!-- ลงชื่อ รุ่งโรจน์ -->
