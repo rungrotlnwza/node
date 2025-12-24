@@ -255,30 +255,33 @@
       formData.append('media', file);
     });
 
-    try {
-      const response = await fetch('/api/lesson', {
+    // ส่งโดยใช้ promise chain และคืนค่า parsed JSON (axios-like: then(res => res.data))
+    fetch('/api/lesson', {
         method: 'POST',
         headers: {
           // ห้ามตั้ง Content-Type เองเมื่อใช้ FormData ครับ เพราะ Browser จะจัดการ Boundary ให้เอง
           'Authorization': `Bearer ${getCookie('token')}`
         },
         body: formData // ส่ง formData ไปโดยตรงครับ
-      }).then(({
-        ok,
-        result
-      }) => {
-        if (!ok) {
-          console.error('API error:', result);
-          const detail = result.detail ? `\nDetail: ${JSON.stringify(result.detail)}` : '';
-          throw new Error((result.message || 'Server error') + detail);
+      })
+      .then(async res => {
+        const data = await res.json().catch(() => null);
+        if (!res.ok) {
+          console.error('API error:', data);
+          const detail = data && data.detail ? `\nDetail: ${JSON.stringify(data.detail)}` : '';
+          const message = data && data.message ? data.message : 'Server error';
+          throw new Error(message + detail);
         }
-
+        return data; // resolved value is like `response.data`
+      })
+      .then(data => {
         alert('บันทึกสำเร็จ');
       })
-    } catch (err) {
-      console.error('SaveLesson failed:', err);
-      alert('เกิดข้อผิดพลาด: ' + (err.message || 'ส่งข้อมูลไม่สำเร็จ'));
-    }
+      .catch(err => {
+        console.error('SaveLesson failed:', err);
+        alert('เกิดข้อผิดพลาด: ' + (err && err.message ? err.message : 'ส่งข้อมูลไม่สำเร็จ'));
+        console.log('เกิดข้อผิดพลาด', err && err.message ? err.message : 'ส่งข้อมูลไม่สำเร็จ');
+      });
   }
 </script>
 
